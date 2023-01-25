@@ -14,6 +14,7 @@
 <body onload="onInit()">
     <h1 class='main-header'>Mine Sweeper</h1>
     <div class="score">Score: <span></span></div>
+    <div class="lives">Lives left:<span></span></div>
     <div class="timer">00:00:00</div>
 
     <table>
@@ -29,6 +30,8 @@
         <input type="radio" id="Extreme" name="mode" value="hard" onclick="setDifficulty(this)">
         <label for="mode">Hard</label>
     </form>
+
+    <script src="js/timer.js"></script>
     <script src="js/game.js"></script>
     <script src="js/mines.js"></script>
     <script src="js/util.js"></script>

@@ -7,11 +7,10 @@ body {
     text-align: center;
     color: white;
     background-color: #333;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: cursive;
 }
 
 h1{
-    font-family: cursive;
     font-size: 50px;
 }
 
@@ -41,6 +40,11 @@ td{
 
 .timer{
     font-size: 25px;
+}
+
+.lives{
+    font-family: cursive;
+    font-size: 30px;
 }
 
 .cell {
