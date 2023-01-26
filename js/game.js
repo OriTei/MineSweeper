@@ -9,6 +9,7 @@ const MARK = '🤔'
 const HINT = '💡'
 const LIFE = '🤍'
 const DEATH = '💀'
+const SAFE_CLICK = '✅' 
 
 // Global Variables
 var gLevel = getLevel();
@@ -29,6 +30,7 @@ function onInit() {
     gGame.isOn = true;
     renderBoard(gBoard)
     renderHints();
+    renderSafeClicks();
     updateScore()
     renderLife()
 }
@@ -41,6 +43,7 @@ function getLevel(elLevel) {
         MINES: 3,
         HINTS: 3,
         LIVES: 3,
+        SAFE_CLICKS: 3,
     }
     return level
 }
@@ -288,18 +291,22 @@ function resetLevel() {
             gLevel.MINES = 3
             gLevel.HINTS = 3
             gLevel.LIVES = 3
+            gLevel.SAFE_CLICKS = 3
             break
         case 'medium':
             gLevel.SIZE = 8
             gLevel.MINES = 14
             gLevel.HINTS = 5
             gLevel.LIVES = 4
+            gLevel.SAFE_CLICKS = 5
             break
         case 'hard':
             gLevel.SIZE = 12
             gLevel.MINES = 20
             gLevel.HINTS = 7
             gLevel.LIVES = 5
+            gLevel.SAFE_CLICKS = 8
+
             break;
     }
 }
