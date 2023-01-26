@@ -18,16 +18,15 @@ var gBoard
 var gBoardSize
 var gMines
 var gIsFirstClick
-var gBestTime
+var gBestTime = Infinity
 var gCurrLevel = 'easy'
+var gBoards = [] // contains all moves
 
 // when page load start the game 
 function onInit() {
-    gBestTime = Infinity
     gIsFirstClick = true;
     gGame = getGameState()
     gBoard = buildBoard()
-    gGame.isOn = true;
     renderBoard(gBoard)
     renderHints();
     renderSafeClicks();
@@ -69,6 +68,7 @@ function buildBoard() {
         }
     }
     gBoardSize = gLevel.SIZE * gLevel.SIZE;
+    gBoards.push(board);
     return board
 }
 
@@ -130,8 +130,10 @@ function onCellClicked(elCell, i, j) {
     else onMineClicked(currCell, i, j);
     updateScore();
     checkGameOver();
+    pushLastBoard(); 
 }
 
+// handles the game first click
 function handleFirstClick(elCell, currCell) {
     gIsFirstClick = false;
     gGame.isOn = true;
@@ -149,13 +151,12 @@ function onEmptyClicked(elCell, cell) {
     expandShown(gBoard, cell);
 }
 
-
-// we need to open not only that cell, but also its neighbors.
+// expands the board
 function expandShown(board, cell) {
     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
-        if (i < 0 || i >= board.length) return
+        if (i < 0 || i >= board.length) continue
         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
-            if (j < 0 || j >= board.length) return
+            if (j < 0 || j >= board.length) continue
             var currCell = board[i][j]
             var currElCell = document.querySelector(`.cell-${i}-${j}`);
             if (currCell.isMarked || currCell.isShown) continue;
@@ -163,9 +164,19 @@ function expandShown(board, cell) {
             if (currCell.minesAroundCount !== 0 && !currCell.isShown) currElCell.innerText = currCell.minesAroundCount;
             currElCell.classList.add('selected');
             currCell.isShown = true;
+            gGame.shownCount++
         }
     }
 }
+
+// function undoLastMove() {
+//     if (!gGame.isOn) {
+//         alert('cant undo before first move!')
+//         return
+//     } 
+//     gBoards.pop();
+//     renderBoard();
+// }
 
 //
 // function expandShownAll(board, cell) {
@@ -199,7 +210,6 @@ function expandShown(board, cell) {
 //             var currMinesAround = currCell.minesAroundCount;
 //             if (currMinesAround === 0) expandShownAll(board, currCell)
 //             currCell.isShown = true;
-
 //             if (!currCell.isMine) {
 //                 currElCell.classList.add('selected')
 //                 if(currMinesAround !== 0) currElCell.innerText = currMinesAround;
@@ -211,6 +221,7 @@ function expandShown(board, cell) {
 // called when a cell is right clicked, adds a mark to the cell
 function onCellMarked(elCell, i, j) {
     var cell = gBoard[i][j];
+    if (cell.isMine && cell.isShown) return;
     if (elCell.classList.contains('selected') || !gGame.isOn) return
     document.addEventListener('contextmenu', (event) => { event.preventDefault(); })
     elCell.classList.toggle('marked')
@@ -262,6 +273,7 @@ function cleanBoard() {
     }
 }
 
+
 function renderLife() {
     var elLives = document.querySelector('.lives span')
     elLives.innerText = LIFE.repeat(gLevel.LIVES)
@@ -298,18 +310,18 @@ function resetLevel() {
             gLevel.MINES = 14
             gLevel.HINTS = 5
             gLevel.LIVES = 4
-            gLevel.SAFE_CLICKS = 5
+            gLevel.SAFE_CLICKS = 4
             break
         case 'hard':
             gLevel.SIZE = 12
             gLevel.MINES = 20
             gLevel.HINTS = 7
             gLevel.LIVES = 5
-            gLevel.SAFE_CLICKS = 8
-
+            gLevel.SAFE_CLICKS = 5
             break;
     }
 }
+
 
 function resetGame() {
     resetLevel()
@@ -318,7 +330,6 @@ function resetGame() {
     resetTimer()
     onInit()
 }
-
 
 function setDifficulty(elDiffBtn) {
     gCurrLevel = elDiffBtn.value;

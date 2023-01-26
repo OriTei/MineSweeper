@@ -20,6 +20,9 @@ body {
 }
 
 .mode-btn {
+    border: none;
+    margin: 2px;
+    box-shadow: 5px 5px rgb(160, 160, 160);
     font-family: cursive;
     margin-top: 5px;
     padding: 5px;
@@ -76,7 +79,7 @@ td {
     margin-top: 30px;
     padding: 20px;
     width: 600px;
-    box-shadow: 5px 5px black;
+    box-shadow: 15px 15px rgb(0, 0, 0);
 
 }
 
@@ -85,6 +88,8 @@ td {
 }
 
 .best-time {
+    border: 2px white;
+    box-shadow: 5px 5px rgb(148, 148, 148);
     padding: 10px;
     text-align: center;
     background-color: #333;
@@ -93,23 +98,23 @@ td {
     margin: auto;
     font-size: 35px;
     margin-top: 10px;
-    box-shadow: 3px 3px black;
     width: 60%;
 }
 
 .timer {
-    box-shadow: 3px 3px black;
+    box-shadow: 5px 5px rgb(148, 148, 148);
     background-color: #333;
     margin: auto;
     border-radius: 20px;
     width: 40%;
     margin-top: 15px;
+    margin-bottom: 10px;
     font-size: 35px;
 }
 
 .score-container{
     border-radius: 30px;
-    box-shadow: 5px 5px black;
+    box-shadow: 10px 10px black;
     background-color: #070063;
     width: 20%;
     margin: auto;
@@ -139,7 +144,10 @@ img {
 }
 
 .reset-btn {
+    border: none;
+    margin-right: 5px;
     background-color: #333;
+    box-shadow: 5px 5px rgb(148, 148, 148);
     width: 15%;
     border-radius: 10px;
     font-size: 40px;
@@ -184,7 +192,7 @@ img {
 }
 
 .safe{
-    border: rgb(30, 255, 0) 5px solid;
+    border: rgb(115, 255, 0) 3px solid;
 }
 
 footer {

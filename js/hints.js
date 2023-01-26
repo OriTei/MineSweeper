@@ -3,7 +3,7 @@
 function renderHints() {
     var elHintBtn = document.querySelector('.hint-btn span');
     elHintBtn.innerText = '💡'.repeat(gLevel.HINTS);
-    if (gLevel.HINTS === 0) elHintBtn.innerText = 'No Hints Left'
+    if (gLevel.HINTS === 0) elHintBtn.innerText = '🆘'
 }
 
 function getHint() {
@@ -71,3 +71,4 @@ function renderSafeClicks() {
     elSafeClick.innerText = SAFE_CLICK.repeat(gLevel.SAFE_CLICKS);
     if (gLevel.SAFE_CLICKS === 0) elSafeClick.innerText = '🆘'
 }
+
