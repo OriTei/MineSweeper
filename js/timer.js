@@ -1,6 +1,6 @@
 'use strict'
 
-const timeEl = document.querySelector('.stopper');
+const timeEl = document.querySelector('.timer');
 
 var seconds = 0;
 var interval = null;

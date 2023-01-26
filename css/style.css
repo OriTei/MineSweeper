@@ -3,46 +3,88 @@
     padding: 0;
 }
 
+
+
 body {
     text-align: center;
     color: white;
-    background-color: #333;
+    background: linear-gradient(rgb(93, 93, 233),rgb(12, 0, 54));
+    height: 120vh;
     font-family: cursive;
 }
 
-h1{
-    font-size: 50px;
+.dark-mode{
+    background: none;
+    background: linear-gradient(black,#333,gray);
+    color: rgb(255, 255, 255);
 }
 
-form{
+.mode-btn{
+    font-family: cursive;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+.mode-btn:hover{
+cursor: pointer;
+transition: 0.5s;
+background-color: #333;
+color: white;
+}
+
+
+h1 {
+    margin-top: 30px;
+    font-size: 50px;
+    text-shadow: 5px 5px 10px rgb(92, 92, 92);
+}
+
+form {
     font-size: 30px;
     display: flex;
     justify-content: center;
 }
 
-label{
+label {
     margin: 15px;
 }
 
 table {
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-td{
-    padding: 20px;
+td img {
+    height: 30px;
+    background-color: #333;
+}
+
+td {
+    background-image: none;
+    background: linear-gradient(lightblue,rgb(75, 135, 155));
+    padding: 5px;
     font-size: 30px;
 }
 
-.score{
+
+.score {
     font-size: 30px;
 }
 
-.timer{
-    font-size: 25px;
+.timer {
+    background-color: #070063;
+    margin: auto;
+    width: 10%;
+    border: white 3px solid;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 35px;
 }
 
-.lives{
+.lives {
     font-family: cursive;
     font-size: 30px;
 }
@@ -58,32 +100,56 @@ td{
     cursor: pointer;
 }
 
+
+img {
+    height: 50px;
+    border-radius: 50%;
+}
+
 .reset-btn {
+    border: 2px rgb(255, 255, 255) solid;
+    width: 5%;
     border-radius: 10px;
     font-size: 40px;
-    padding: 10px;
+    padding: 0 20px;
     margin-top: 10px;
+    background-color: #070063;
+}
+
+.reset-btn img {
+    margin-top: 5px;
+    width: 100%;
 }
 
 .reset-btn:hover {
-cursor: pointer;
-opacity: 0.8;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
 }
 
 .selected {
+    background: none;
     transition: 0.3s;
-    background-color: gray;
+    background-color: rgb(2, 81, 172);
 }
 
 .mine {
-    transition: 0.2s;
-    background-color: lightcoral;
+    background: none;
+    background-color: rgb(245, 123, 123);
 }
 
 .marked {
-    background-color: lightsalmon;
+    background: none;
+    background: linear-gradient(blue, cyan);
 }
 
 .modal {
     display: none;
+}
+
+footer {
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 5px black;
+    font-size: 50px;
+    margin-top: 50px;
 }

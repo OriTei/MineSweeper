@@ -7,6 +7,7 @@ function DisplayAllMines() {
         var pos = gMines[i].pos;
         var elMine = document.querySelector(`.cell-${pos.i}-${pos.j}`);
         elMine.classList.add('mine');
+        renderMine(elMine)
     }
 }
 
@@ -15,7 +16,9 @@ function onMineClicked(elCell) {
     elCell.classList.add('mine', 'selected');
     mineSound.play();
     gGame.lives--;
+    renderMine(elCell)
     if (gGame.lives === 0) {
+        stopTimer()
         DisplayAllMines();
         gGame.isOn = false;
     }
@@ -29,7 +32,7 @@ function setBoardMines(board, elCell) {
         var elCurrPos = document.querySelector(`.cell-${currPos.i}-${currPos.j}`);
         board[currPos.i][currPos.j].isMine = true;
         board[currPos.i][currPos.j].isShown = false;
-        board[currPos.i][currPos.j].shownCount--;
+        gGame.shownCount--;
         elCurrPos.classList.remove('selected');
         gMines.push(board[currPos.i][currPos.j]);
     }
@@ -61,7 +64,6 @@ function setMinesNegsCount(board) {
 
 // sets how many mines are around each cell
 function setCellMineNegs(cell, board) {
-    var negsCounter = 0;
     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
         if (i < 0 || i >= board.length) continue
         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
@@ -70,4 +72,8 @@ function setCellMineNegs(cell, board) {
             if (board[i][j].isMine) cell.minesAroundCount++
         }
     }
+}
+
+function renderMine(elMine) {
+    elMine.innerHTML = MINE_IMG;
 }
