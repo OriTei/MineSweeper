@@ -41,15 +41,16 @@ function setBoardMines(board, elCell) {
 
 // returns a free pos for mines
 function getFreePos(board, elCell) {
+    debugger
     var clickedCell = board[elCell.dataset.i][elCell.dataset.j];
     var randI = getRandomIntInclusive(0, board.length - 1)
     var randJ = getRandomIntInclusive(0, board.length - 1)
     var resCell = board[randI][randJ]
     // while the random position is the same as the clicked cell or as another mine keep looking for free pos
-    while (clickedCell.pos.i === resCell.pos.i &&
-        clickedCell.pos.j === resCell.pos.j && !resCell.isMine) {
+    while ((clickedCell.pos.i === resCell.pos.i && clickedCell.pos.j === resCell.pos.j) || resCell.isMine) {
         var randI = getRandomIntInclusive(0, board.length - 1);
         var randJ = getRandomIntInclusive(0, board.length - 1);
+        resCell = board[randI][randJ]
     }
     return { i: randI, j: randJ };
 }

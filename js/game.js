@@ -20,7 +20,7 @@ var gIsFirstClick
 
 // when page load start the game 
 function onInit() {
-    gIsFirstClick = true;
+   gIsFirstClick = true;
     gGame = getGameState()
     gBoard = buildBoard()
     gGame.isOn = true;

@@ -7,7 +7,7 @@ function renderHints() {
 }
 
 function getHint() {
-    if (gIsFirstClick) return;
+    if (gIsFirstClick || !gGame.isOn) return;
     if (gLevel.HINTS === 0) return
     gLevel.HINTS--;
     renderHints()
