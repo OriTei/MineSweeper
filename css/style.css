@@ -8,18 +8,18 @@
 body {
     text-align: center;
     color: white;
-    background: linear-gradient(rgb(93, 93, 233),rgb(12, 0, 54));
-    height: 130vh;
+    background: linear-gradient(rgb(158, 158, 240), rgb(30, 5, 119));
+    height: 200vh;
     font-family: cursive;
 }
 
-.dark-mode{
+.dark-mode {
     background: none;
-    background: linear-gradient(black,#333,gray);
+    background: linear-gradient(black, #333, gray);
     color: rgb(255, 255, 255);
 }
 
-.mode-btn{
+.mode-btn {
     font-family: cursive;
     margin-top: 5px;
     padding: 5px;
@@ -27,16 +27,16 @@ body {
     border-radius: 10px;
 }
 
-.mode-btn:hover{
-cursor: pointer;
-transition: 0.5s;
-background-color: #333;
-color: white;
+.mode-btn:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    background-color: #333;
+    color: white;
 }
 
 
 h1 {
-    margin-top: 30px;
+    margin: 30px 0;
     font-size: 50px;
     text-shadow: 5px 5px 10px rgb(92, 92, 92);
 }
@@ -64,24 +64,56 @@ td img {
 
 td {
     background-image: none;
-    background: linear-gradient(lightblue,rgb(75, 135, 155));
+    background: linear-gradient(lightblue, rgb(75, 135, 155));
     padding: 5px;
     font-size: 30px;
 }
 
+.board-container {
+    background-color: rgb(1, 0, 70);
+    border-radius: 50px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 20px;
+    width: 600px;
+    box-shadow: 5px 5px black;
+
+}
 
 .score {
     font-size: 30px;
 }
 
-.timer {
-    background-color: #070063;
+.best-time {
+    padding: 10px;
+    text-align: center;
+    background-color: #333;
+    border-radius: 20px;
+    padding-left: 10px;
     margin: auto;
-    width: 10%;
-    border: white 3px solid;
-    border-radius: 10px;
+    font-size: 35px;
+    margin-top: 10px;
+    box-shadow: 3px 3px black;
+    width: 60%;
+}
+
+.timer {
+    box-shadow: 3px 3px black;
+    background-color: #333;
+    margin: auto;
+    border-radius: 20px;
+    width: 40%;
     margin-top: 15px;
     font-size: 35px;
+}
+
+.score-container{
+    border-radius: 30px;
+    box-shadow: 5px 5px black;
+    background-color: #070063;
+    width: 20%;
+    margin: auto;
+    padding: 10px;
 }
 
 .lives {
@@ -107,13 +139,12 @@ img {
 }
 
 .reset-btn {
-    border: 2px rgb(255, 255, 255) solid;
-    width: 5%;
+    background-color: #333;
+    width: 15%;
     border-radius: 10px;
     font-size: 40px;
     padding: 0 20px;
     margin-top: 10px;
-    background-color: #070063;
 }
 
 .reset-btn img {
@@ -135,6 +166,7 @@ img {
 
 .mine {
     background: none;
+    transition: 0.5s;
     background-color: rgb(245, 123, 123);
 }
 
@@ -147,8 +179,8 @@ img {
     display: none;
 }
 
-.hint{
-    border:rgb(255, 0, 0) 3px solid;
+.hint {
+    border: rgb(255, 0, 0) 3px solid;
 }
 
 footer {

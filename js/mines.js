@@ -7,47 +7,47 @@ function DisplayAllMines() {
         var pos = gMines[i].pos;
         var elMine = document.querySelector(`.cell-${pos.i}-${pos.j}`);
         elMine.classList.add('mine');
-        renderMine(elMine)
+        renderCell(pos, MINE_IMG)
     }
 }
 
 // end game if the player clicked on a mine 
-function onMineClicked(elCell) {
-    var clickedCell = gBoard[elCell.dataset.i][elCell.dataset.j];
-    clickedCell.isShown = true; 
-    elCell.classList.add('mine', 'selected');
+function onMineClicked(currCell) {
+    currCell.isShown = true;
     mineSound.play();
     gLevel.LIVES--;
-    renderMine(elCell)
-    checkGameOver()
+    renderCell(currCell.pos, MINE_IMG)
+    var elCell = document.querySelector(`.cell-${currCell.pos.i}-${currCell.pos.j}`)
+    elCell.classList.add('mine');
+    renderLife();
+    checkGameOver();
 }
 
 // set the mines on board
-function setBoardMines(board, elCell) {
+function setBoardMines(cell) {
     gMines = [];
     for (var i = 0; i < gLevel.MINES; i++) {
-        var currPos = getFreePos(board, elCell);
-        var elCurrPos = document.querySelector(`.cell-${currPos.i}-${currPos.j}`);
-        board[currPos.i][currPos.j].isMine = true;
-        board[currPos.i][currPos.j].isShown = false;
+        var currPos = getFreePos(cell);
+        var elCurrPos = document.querySelector(`.cell-${cell.pos.i}-${cell.pos.j}`);
+        gBoard[currPos.i][currPos.j].isMine = true;
+        gBoard[currPos.i][currPos.j].isShown = false;
         gGame.shownCount--;
         elCurrPos.classList.remove('selected');
-        gMines.push(board[currPos.i][currPos.j]);
+        gMines.push(gBoard[currPos.i][currPos.j]);
     }
-    setMinesNegsCount(board)
+    setMinesNegsCount(gBoard)
 }
 
 // returns a free pos for mines
-function getFreePos(board, elCell) {
-    var clickedCell = board[elCell.dataset.i][elCell.dataset.j];
-    var randI = getRandomIntInclusive(0, board.length - 1)
-    var randJ = getRandomIntInclusive(0, board.length - 1)
-    var resCell = board[randI][randJ]
+function getFreePos(cell) {
+    var randI = getRandomIntInclusive(0, gBoard.length - 1)
+    var randJ = getRandomIntInclusive(0, gBoard.length - 1)
+    var resCell = gBoard[randI][randJ]
     // while the random position is the same as the clicked cell or as another mine keep looking for free pos
-    while ((clickedCell.pos.i === resCell.pos.i && clickedCell.pos.j === resCell.pos.j) || resCell.isMine) {
-        var randI = getRandomIntInclusive(0, board.length - 1);
-        var randJ = getRandomIntInclusive(0, board.length - 1);
-        resCell = board[randI][randJ]
+    while ((cell.pos.i === resCell.pos.i && cell.pos.j === resCell.pos.j) || resCell.isMine) {
+        var randI = getRandomIntInclusive(0, gBoard.length - 1);
+        var randJ = getRandomIntInclusive(0, gBoard.length - 1);
+        resCell = gBoard[randI][randJ]
     }
     return { i: randI, j: randJ };
 }
@@ -74,6 +74,15 @@ function setCellMineNegs(cell, board) {
     }
 }
 
-function renderMine(elMine) {
-    elMine.innerHTML = MINE_IMG;
+function blowUpMines() {
+    debugger;
+    if (gIsFirstClick) return;
+    while (gMines.length > 0) {
+        var currMine = gMines[0];
+        currMine.isMine = false;
+        var elCurrMine = document.querySelector(`.cell-${currMine.pos.i}-${currMine.pos.j}`)
+        elCurrMine.classList.remove('mine')
+        gMines.splice(0, 1);
+    }
+
 }

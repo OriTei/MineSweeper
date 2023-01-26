@@ -92,8 +92,8 @@ function renderBoard() {
         strHTML += '<tr>\n'
         for (var j = 0; j < gBoard.length; j++) {
             var cellClass = getClassName(i, j) + ' '
-            strHTML += `<td class="cell ${cellClass}" data-i="${i}" data-j="${j}" 
-            oncontextmenu="onCellMarked(this)" onclick="onCellClicked(this)">`
+            strHTML += `<td class="cell ${cellClass}"  
+            oncontextmenu="onCellMarked(this,${i},${j})" onclick="onCellClicked(this,${i},${j})">`
             strHTML += '</td>\n'
         }
         strHTML += '</tr>\n'
@@ -118,14 +118,13 @@ function getClassName(i, j) {
 
 
 // when a cell is clicked function 
-function onCellClicked(elCell) {
-    var currCell = gBoard[elCell.dataset.i][elCell.dataset.j]
+function onCellClicked(elCell, i, j) {
+    var currCell = gBoard[i][j]
     if (gIsFirstClick) handleFirstClick(elCell, currCell)
     if (currCell.isMarked) return;
     if (currCell.isShown || !gGame.isOn) return;
     if (!currCell.isMine) onEmptyClicked(elCell, currCell);
-    else onMineClicked(elCell);
-    renderLife();
+    else onMineClicked(currCell, i, j);
     updateScore();
     checkGameOver();
 }
@@ -134,7 +133,7 @@ function handleFirstClick(elCell, currCell) {
     gIsFirstClick = false;
     gGame.isOn = true;
     startTimer();
-    setBoardMines(gBoard, elCell);
+    setBoardMines(currCell);
     onEmptyClicked(elCell, currCell);
     updateScore();
 }
@@ -151,9 +150,9 @@ function onEmptyClicked(elCell, cell) {
 // we need to open not only that cell, but also its neighbors.
 function expandShown(board, cell) {
     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
-        if (i < 0 || i >= board.length) continue
+        if (i < 0 || i >= board.length) return
         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
-            if (j < 0 || j >= board.length) continue
+            if (j < 0 || j >= board.length) return
             var currCell = board[i][j]
             var currElCell = document.querySelector(`.cell-${i}-${j}`);
             if (currCell.isMarked || currCell.isShown) continue;
@@ -165,9 +164,50 @@ function expandShown(board, cell) {
     }
 }
 
+//
+// function expandShownAll(board, cell) {
+//     debugger
+//     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
+//         if (i < 0 || i >= board.length) return;
+//         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
+//             if (j < 0 || j >= board.length) return
+//             var currCell = board[i][j]
+//             var currElCell = document.querySelector(`.cell-${i}-${j}`);
+//             if (currCell.isMarked || currCell.isShown) return;
+//             if (currCell.isMine || i === cell.pos.i && j === cell.pos.j) continue
+//             if (currCell.minesAroundCount === 0 && !currCell.isShown) expandShownAll(board, currCell);
+//             if (currCell.minesAroundCount !== 0 && !currCell.isShown)
+//                 currElCell.innerText = currCell.minesAroundCount;
+//             currElCell.classList.add('selected');
+//             currCell.isShown = true;
+//         }
+//     }
+// }
+
+
+// function expandShownAll(board, cell) {
+//     debugger;
+//     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
+//         if (i < 0 || i >= board.length) return;
+//         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
+//             if (j < 0 || j >= board.length) return
+//             var currCell = board[i][j]
+//             var currElCell = document.querySelector(`.cell-${i}-${j}`);
+//             var currMinesAround = currCell.minesAroundCount;
+//             if (currMinesAround === 0) expandShownAll(board, currCell)
+//             currCell.isShown = true;
+
+//             if (!currCell.isMine) {
+//                 currElCell.classList.add('selected')
+//                 if(currMinesAround !== 0) currElCell.innerText = currMinesAround;
+//             }
+//         }
+//     }
+// }
+
 // called when a cell is right clicked, adds a mark to the cell
-function onCellMarked(elCell) {
-    var cell = gBoard[elCell.dataset.i][elCell.dataset.j];
+function onCellMarked(elCell, i, j) {
+    var cell = gBoard[i][j];
     if (elCell.classList.contains('selected') || !gGame.isOn) return
     document.addEventListener('contextmenu', (event) => { event.preventDefault(); })
     elCell.classList.toggle('marked')
@@ -183,7 +223,6 @@ function renderMark(elCell, cell) {
     else {
         cell.isMarked = false
         elCell.innerText = ''
-
     }
 }
 
@@ -235,7 +274,7 @@ function updateScore() {
         // each mine will reduce one point
         if (elSelected[i].classList.contains('mine')) {
             scoreReduction++
-            continue
+            continue;
         }
         gGame.shownCount++
     }
@@ -245,23 +284,20 @@ function updateScore() {
 function resetLevel() {
     switch (gCurrLevel) {
         case 'easy':
-            gCurrLevel = 'easy'
             gLevel.SIZE = 4
             gLevel.MINES = 3
             gLevel.HINTS = 3
             gLevel.LIVES = 3
             break
         case 'medium':
-            gCurrLevel = 'medium'
             gLevel.SIZE = 8
             gLevel.MINES = 14
             gLevel.HINTS = 5
             gLevel.LIVES = 4
             break
         case 'hard':
-            gCurrLevel = 'hard'
             gLevel.SIZE = 12
-            gLevel.MINES = 32
+            gLevel.MINES = 20
             gLevel.HINTS = 7
             gLevel.LIVES = 5
             break;
