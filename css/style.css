@@ -9,7 +9,7 @@ body {
     text-align: center;
     color: white;
     background: linear-gradient(rgb(93, 93, 233),rgb(12, 0, 54));
-    height: 120vh;
+    height: 130vh;
     font-family: cursive;
 }
 
@@ -130,7 +130,7 @@ img {
 .selected {
     background: none;
     transition: 0.3s;
-    background-color: rgb(2, 81, 172);
+    background-color: rgb(55, 144, 247);
 }
 
 .mine {
@@ -145,6 +145,10 @@ img {
 
 .modal {
     display: none;
+}
+
+.hint{
+    border:rgb(255, 0, 0) 3px solid;
 }
 
 footer {

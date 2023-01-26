@@ -6,6 +6,9 @@ const START_IMG = '<img src="img/game-start.png">\n'
 const WIN_IMG = '<img src="img/game-win.png">\n'
 const MINE_IMG = '<img src="img/mine.png">\n'
 const MARK = '🤔'
+const HINT = '💡'
+const LIFE = '🤍'
+const DEATH = '💀'
 
 // Global Variables
 var gLevel = getLevel();
@@ -22,8 +25,9 @@ function onInit() {
     gBoard = buildBoard()
     gGame.isOn = true;
     renderBoard(gBoard)
+    renderHints();
     updateScore()
-    updateLife()
+    renderLife()
 }
 
 
@@ -32,6 +36,8 @@ function getLevel(elLevel) {
     var level = {
         SIZE: 4, // change to radio button pick
         MINES: 3,
+        HINTS: 3,
+        LIVES: 3,
     }
     return level
 }
@@ -43,7 +49,6 @@ function getGameState() {
         shownCount: 0,
         markedCount: 0,
         secsPassed: 0,
-        lives: 3
     }
     return gameState
 }
@@ -118,7 +123,7 @@ function onCellClicked(elCell) {
     if (currCell.isShown || !gGame.isOn) return;
     if (!currCell.isMine) onEmptyClicked(elCell, currCell);
     else onMineClicked(elCell);
-    updateLife();
+    renderLife();
     updateScore();
     checkGameOver();
 }
@@ -196,7 +201,7 @@ function checkGameOver() {
         renderPicture(WIN_IMG)
         stopTimer()
     }
-    else if (gGame.lives === 0) {
+    else if (gLevel.LIVES === 0) {
         gGame.isOn = false
         renderPicture(LOST_IMG)
         stopTimer()
@@ -211,29 +216,30 @@ function cleanBoard() {
     }
 }
 
-function updateLife() {
-    var elLives = document.querySelector('.lives span');
-    elLives.innerText = ' ' + gGame.lives
+function renderLife() {
+    var elLives = document.querySelector('.lives span')
+    elLives.innerText = LIFE.repeat(gLevel.LIVES)
+    if(gLevel.LIVES === 0) elLives.innerText = DEATH
 }
 
 function updateScore() {
     gGame.shownCount = 0
-    var scoreReduction = 0;
-    var elSelected = document.querySelectorAll('.selected');
-    var elScore = document.querySelector('.score span');
+    var scoreReduction = 0
+    var elSelected = document.querySelectorAll('.selected')
+    var elScore = document.querySelector('.score span')
     for (var i = 0; i < elSelected.length; i++) {
         // each mine will reduce one point
         if (elSelected[i].classList.contains('mine')) {
             scoreReduction++
             continue
         }
-        gGame.shownCount++;
+        gGame.shownCount++
     }
     elScore.innerText = ' ' + (gGame.shownCount - scoreReduction)
 }
 
 function resetGame() {
-    gGame.lives = LIVES
+
     cleanBoard()
     stopTimer()
     resetTimer()
@@ -242,25 +248,33 @@ function resetGame() {
 
 
 function setDifficulty(elDiffBtn) {
+    debugger;
     var gameMode = elDiffBtn.value;
     switch (gameMode) {
         case 'easy':
             gLevel.SIZE = 4
             gLevel.MINES = 3
+            gLevel.HINTS = 3
+            gLevel.LIVES = 3
             resetGame()
             break
         case 'medium':
             gLevel.SIZE = 8
             gLevel.MINES = 14
+            gLevel.HINTS = 5
+            gLevel.LIVES = 4
             resetGame();
             break
         case 'hard':
             gLevel.SIZE = 12
             gLevel.MINES = 32
+            gLevel.HINTS = 7
+            gLevel.LIVES = 5
             resetGame()
             break
     }
 }
+
 
 function setDarkMode() {
     var elBody = document.querySelector('body');

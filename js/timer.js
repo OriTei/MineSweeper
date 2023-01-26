@@ -21,9 +21,11 @@ function timer() {
         hours = '0' + hours;
     }
     timeEl.innerText = hours + ":" + mins + ":" + sec;
+    gGame.secsPassed++
 }
 
 function startTimer() {
+    gGame.secsPassed = 0;
     if (interval) {
         return;
     }

@@ -15,9 +15,9 @@ function DisplayAllMines() {
 function onMineClicked(elCell) {
     elCell.classList.add('mine', 'selected');
     mineSound.play();
-    gGame.lives--;
+    gLevel.LIVES--;
     renderMine(elCell)
-    if (gGame.lives === 0) {
+    if (gLevel.LIVES === 0) {
         stopTimer()
         DisplayAllMines();
         gGame.isOn = false;
@@ -44,8 +44,10 @@ function getFreePos(board, elCell) {
     var clickedCell = board[elCell.dataset.i][elCell.dataset.j];
     var randI = getRandomIntInclusive(0, board.length - 1)
     var randJ = getRandomIntInclusive(0, board.length - 1)
-    // while the random position is the same as the clicked cell keep looking for free pos
-    while (clickedCell.pos.i === board[randI][randJ].pos.i && clickedCell.pos.j === board[randI][randJ].pos.j) {
+    var resCell = board[randI][randJ]
+    // while the random position is the same as the clicked cell or as another mine keep looking for free pos
+    while (clickedCell.pos.i === resCell.pos.i &&
+        clickedCell.pos.j === resCell.pos.j && !resCell.isMine) {
         var randI = getRandomIntInclusive(0, board.length - 1);
         var randJ = getRandomIntInclusive(0, board.length - 1);
     }

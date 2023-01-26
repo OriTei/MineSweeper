@@ -22,6 +22,7 @@
         <table>
             <tbody class="board">
             </table>
+            <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
             <button class="mode-btn" onclick="setDarkMode()">Change Mode</button>
 
         <form>
@@ -33,7 +34,10 @@
             <label for="mode">Hard</label>
         </form>
     </div>
+
+    <script src="js/storage.js"></script>
     <script src="js/timer.js"></script>
+    <script src="js/hints.js"></script>
     <script src="js/game.js"></script>
     <script src="js/mines.js"></script>
     <script src="js/util.js"></script>
