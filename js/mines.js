@@ -13,15 +13,13 @@ function DisplayAllMines() {
 
 // end game if the player clicked on a mine 
 function onMineClicked(elCell) {
+    var clickedCell = gBoard[elCell.dataset.i][elCell.dataset.j];
+    clickedCell.isShown = true; 
     elCell.classList.add('mine', 'selected');
     mineSound.play();
     gLevel.LIVES--;
     renderMine(elCell)
-    if (gLevel.LIVES === 0) {
-        stopTimer()
-        DisplayAllMines();
-        gGame.isOn = false;
-    }
+    checkGameOver()
 }
 
 // set the mines on board
@@ -41,7 +39,6 @@ function setBoardMines(board, elCell) {
 
 // returns a free pos for mines
 function getFreePos(board, elCell) {
-    debugger
     var clickedCell = board[elCell.dataset.i][elCell.dataset.j];
     var randI = getRandomIntInclusive(0, board.length - 1)
     var randJ = getRandomIntInclusive(0, board.length - 1)
