@@ -1,6 +1,7 @@
 'use strict'
 
 var mineSound = new Audio('sounds/bombSound.mp3');
+var gIsExterminateUsed = false
 
 function DisplayAllMines() {
     for (var i = 0; i < gMines.length; i++) {
@@ -59,7 +60,12 @@ function setMinesNegsCount(board) {
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board.length; j++) {
             var currCell = board[i][j]
+            var elCurrCell = document.querySelector(`.cell-${i}-${j}`);
+            currCell.minesAroundCount = 0;
             setCellMineNegs(currCell, board)
+            if (currCell.isShown && !currCell.isClicked)
+                elCurrCell.innerText = (currCell.minesAroundCount > 0) ? currCell.minesAroundCount : EMPTY
+
         }
     }
 }
@@ -77,39 +83,43 @@ function setCellMineNegs(cell, board) {
 }
 
 function blowUpMines() {
+    if (gIsExterminateUsed) return;
     var counter = 0;
     if (gIsFirstClick) return
-    for (var i = 0; i < gMines.length && counter < 3; i++) {
+    for (var i = 0; counter < 3; i++) {
         var randIdx = getRandomIntInclusive(0, gMines.length - 1)
         var currMine = gMines[randIdx]
         var elCurrMine = document.querySelector(`.cell-${currMine.pos.i}-${currMine.pos.j}`)
         if (currMine.isShown) continue
         currMine.isBlown = true
         currMine.isShown = false;
+        currMine.isMine = false;
         displaySafeClick(elCurrMine)
         gMines.splice(randIdx, 1)
         gLevel.MINES--;
         counter++
     }
+    setMinesNegsCount(gBoard);
+    gIsExterminateUsed = true;
 }
 
 function setMinesManually() {
-    gIsBoardManual = true; 
-    if (!gIsFirstClick) { 
+    gIsBoardManual = true;
+    if (!gIsFirstClick) {
         alert('cant set manually during game')
         return
-    } 
+    }
     // when finished set
     if (gIsMineSet) {
         setMinesNegsCount(gBoard);
         gIsMineSet = false
-        clearSetCells() 
-    } 
+        clearSetCells()
+    }
     // when start set 
     else {
         gIsMineSet = true
         gMines = [];
-    } 
+    }
 }
 
 function getWantedMineSpot(i, j) {
@@ -127,7 +137,7 @@ function getWantedMineSpot(i, j) {
 
 function clearSetCells() {
     var elSets = document.querySelectorAll('.manual')
-    for (var i = 0; i < elSets.length; i++){
+    for (var i = 0; i < elSets.length; i++) {
         elSets[i].classList.remove('manual');
     }
 }

@@ -1,14 +1,11 @@
-*{
-    margin: 0;
-    padding: 0;
+.scoreboard-pos{
+    font-size: 40px;
+    padding: 0px 20px;
+    text-align: center;
+    font-family: cursive;
+    background: none;
+    background-color: rgb(214, 212, 212);
+    border-radius: 10px;
 }
 
-body{
-    background: linear-gradient(rgb(30, 5, 119),rgb(158, 158, 240));
-    font-family: cursive;
-    height: 200vh;
-    text-align: center;
-    color: white;
-    font-size: 50px
-}
 

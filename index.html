@@ -5,8 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/scoreboard.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Mine Sweeper Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500&family=Manrope:wght@600;800&family=Open+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
 </head>
 
 <!-- onload="onInit()" -->
@@ -14,32 +20,31 @@
 <body onload="onInit()">
     <div class="mode">
         <h1 class='main-header'>Mine Sweeper</h1>
-    <div class="score-container">
-        <div class="score">Score: <span></span></div>
-        <div class="lives">Lives left:<span></span></div>
-    </div>
+        <div class="score-container">
+            <div class="score">Score: <span></span></div>
+            <div class="lives">Lives left :  <span></span></div>
+        </div>
         <div class="board-container">
-            <div class="best-time">Best Time:<span></span></div>
+            <div class="best-time">Best Current Time :<span></span></div>
             <div class="timer">00:00:00</div>
-            <div class="scoreboard"><a href="#scoreboard"></a></div>
-            <div>
-                <button class="reset-btn" onclick="resetGame()"></button>
-                
+            <div class="top-btns">
+                <button class="reset-btn undo-btn" onclick="undoMove()"><img src="img/undo.jpg"></button>
+                <button class="reset-btn smile" onclick="resetGame()"></button>
+                <button class="reset-btn set-btn" onclick="setMinesManually()"><img src="img/setmines.png"></button>
             </div>
-            <button class="reset-btn undo-btn" onclick="undoMove()"><img src="img/undo.jpg"></button>
-            <button class="reset-btn set-btn" onclick="setMinesManually()"><img src="img/setmines.png"></button>
-            
-            
+
+
+
             <table>
-                <tbody class="board">
+                <tbody class="board" id="main-board">
             </table>
             <button class="mode-btn safe-click" onclick="getSafeClick()"><span></span></button>
             <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
             <br>
 
             <button class="mode-btn" onclick="getMegaHint()">🔎</button>
-            <button class="mode-btn" onclick="blowUpMines()">👽</button>
             <button class="mode-btn" onclick="setDarkMode()">Change Mode</button>
+            <button class="mode-btn" onclick="blowUpMines()">👽</button>
             <form>
                 <input type="radio" id="easy" name="mode" value="easy" onclick="setDifficulty(this)" checked>
                 <label for="mode">Easy</label><br>
@@ -50,6 +55,9 @@
             </form>
         </div>
     </div>
+    <table class="scoreboard">
+        <tbody class="scoreboard-table" id="sboard">
+    </table>
     <script src="js/storage.js"></script>
     <script src="js/timer.js"></script>
     <script src="js/hints.js"></script>

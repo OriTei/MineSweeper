@@ -8,9 +8,9 @@
 body {
     text-align: center;
     color: white;
-    background: linear-gradient(rgb(158, 158, 240), rgb(30, 5, 119));
-    height: 200vh;
-    font-family: cursive;
+    background: linear-gradient(rgb(135, 124, 175),rgb(1, 1, 102));
+    height: 350vh;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .dark-mode {
@@ -21,7 +21,8 @@ body {
 
 .mode-btn {
     border: none;
-    margin: 2px;
+    margin: auto;
+    margin: 5px 5px;
     box-shadow: 5px 5px rgb(160, 160, 160);
     font-family: cursive;
     margin-top: 5px;
@@ -31,9 +32,10 @@ body {
 }
 
 .mode-btn:hover {
-    transition: 0.2s;
+    transition: 0.3s;
     cursor: pointer;
     background-color: #333;
+    box-shadow: 1px 1px whitesmoke;
     color: white;
 }
 
@@ -42,6 +44,7 @@ h1 {
     margin: 30px 0;
     font-size: 50px;
     text-shadow: 5px 5px blue;
+    font-family: cursive;
 }
 
 form {
@@ -79,9 +82,7 @@ a{
     font-size: 20px;
 }
 
-a:hover{
-    color: aqua;
-}
+
 
 .board-container {
     background-color: rgb(1, 0, 70);
@@ -89,9 +90,9 @@ a:hover{
     margin: auto;
     margin-top: 30px;
     padding: 20px;
-    width: 600px;
+    width: 50%;
     box-shadow: 15px 15px rgb(0, 0, 0);
-
+    margin-bottom: 50px;
 }
 
 .score {
@@ -137,7 +138,6 @@ a:hover{
 }
 
 .lives {
-    font-family: cursive;
     font-size: 30px;
 }
 
@@ -148,7 +148,7 @@ a:hover{
 }
 
 .cell:hover {
-    opacity: 0.7;
+    opacity: 0.8;
     cursor: pointer;
 }
 
@@ -164,11 +164,12 @@ img {
     margin-right: 5px;
     background-color: #333;
     box-shadow: 5px 5px rgb(148, 148, 148);
-    width: 15%;
+    height: 90px;
+    width: 90px;
     border-radius: 10px;
     font-size: 40px;
     padding: 0 20px;
-    margin-top: 10px;
+    margin: 5px 5px;
 }
 
 .reset-btn img {
@@ -179,6 +180,7 @@ img {
 .reset-btn:hover {
     cursor: pointer;
     background-color: rgb(255, 255, 255);
+    box-shadow: 3px 1px  rgb(83, 83, 83);
 }
 
 .selected {
@@ -195,7 +197,7 @@ img {
 
 .marked {
     background: none;
-    background: linear-gradient(blue, cyan);
+    background: linear-gradient(blue, rgb(21, 2, 109));
 }
 
 .modal {
@@ -203,11 +205,13 @@ img {
 }
 
 .hint {
-    border: rgb(255, 0, 0) 3px solid;
+    background: none;
+    background: linear-gradient(red,lightcoral);
 }
 
 .safe{
-    border: rgb(115, 255, 0) 3px solid;
+    background: none;
+    background: linear-gradient(lime,green);
 }
 
 .mega-hint{
@@ -233,3 +237,16 @@ footer {
     background: none;
     background-color: brown;
 }
+
+
+tbody .scoreboard-cell{
+    background: linear-gradient(rgb(41, 41, 75), rgb(15, 15, 71));
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+    color: rgb(243, 243, 243);
+    padding: 20px;
+    margin: auto;
+    text-align: left;
+}
+

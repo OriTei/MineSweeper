@@ -9,7 +9,7 @@ function setGameTime() {
     var elBestTime = document.querySelector('.best-time span');
     var bestTime = Math.min(gBestTime, gGame.secsPassed);
     gBestTime = bestTime;
-    setLocalStorage(pName, bestTime)
+    setLocalStorage(pName, gGame.secsPassed)
     elBestTime.innerText = ' ' + bestTime + 's';
 }
 
@@ -19,10 +19,13 @@ function setLocalStorage(name, score) {
 }
 
 function createScoreBoard() {
+    gScores = []
     for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
         var value = localStorage.getItem(key);
-        gScores.push({ name: key, score: value });
+        if (gScores.includes({ name: key })) continue;
+        gScores.push({ name: key, score: value});
+    
     }
     gScores.sort();
 }
@@ -33,12 +36,13 @@ function renderScoreBoard() {
     for (var i = 0; i < gScores.length; i++) {
         strHTML += '<tr>\n'
         for (var j = 0; j < 1; j++) {
-            strHTML += `<td class="scoreboard-cell">Name: ${gScores[i].name}  |\n
-            Score: ${gScores[i].score}seconds\n`;
+            strHTML += `<td class="scoreboard-pos">${i+1}</td><td class="scoreboard-cell">Name: ${gScores[i].name}\n</td>
+            <td class="scoreboard-cell"> Time: ${gScores[i].score} seconds</td>\n`;
             strHTML += '</td>\n'
         }
         strHTML += '</tr>\n'
     }
-    var elScoreBoard = document.getElementById('sboard')
+    debugger
+    var elScoreBoard = document.querySelector('.scoreboard-table')
     elScoreBoard.innerHTML = strHTML
 }

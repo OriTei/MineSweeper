@@ -27,10 +27,10 @@ var gIsMegaHint = false
 var gIsMineSet = false;
 var gLives = []
 var gIsBoardManual = false
+var gCurrTime
 
 // when page load start the game 
 function onInit() {
-    gIsBoardManual = false; 
     gIsFirstClick = true;
     gGame = getGameState()
     gBoard = buildBoard()
@@ -40,6 +40,8 @@ function onInit() {
     renderSafeClicks();
     updateScore()
     renderLife()
+    createScoreBoard()
+    renderScoreBoard();
     var copyBoard = copyCurrBoard(gBoard)
     gBoards.push(copyBoard);
     gLives.push(gLevel.LIVES);
@@ -113,14 +115,14 @@ function renderBoard() {
         strHTML += '</tr>\n'
     }
     const elBoard = document.querySelector('.board')
-    const elResetBtn = document.querySelector('.reset-btn')
+    const elResetBtn = document.querySelector('.smile')
     elResetBtn.innerHTML = START_IMG
     elBoard.innerHTML = strHTML
 }
 
 
 function renderPicture(strHTML) {
-    const elResetBtn = document.querySelector('.reset-btn')
+    const elResetBtn = document.querySelector('.smile')
     elResetBtn.innerHTML = strHTML
 }
 
@@ -150,7 +152,6 @@ function onCellClicked(elCell, i, j) {
     if (!currCell.isMine || currCell.isBlown) onEmptyClicked(elCell, currCell);
     else onMineClicked(currCell, i, j);
     updateScore();
-    debugger;
     checkGameOver();
     var currBoardCopy = copyCurrBoard();
     gBoards.push(currBoardCopy)
@@ -190,7 +191,7 @@ function expandShownAll(board, cell) {
             if (j < 0 || j >= board.length) continue
             var currCell = board[i][j]
             var currElCell = document.querySelector(`.cell-${currCell.pos.i}-${currCell.pos.j}`);
-            if (currCell.isMine) continue
+            if (currCell.isMine || currCell.isMarked) continue
             if (!currCell.isShown && currCell.minesAroundCount > 0 && !currCell.isMine) {
                 currCell.isShown = true
                 currElCell.classList.add('selected');
@@ -246,8 +247,8 @@ function checkGameOver() {
         renderPicture(WIN_IMG)
         stopTimer()
         setGameTime();
-        // createScoreBoard();
-        // renderScoreBoard();
+        createScoreBoard();
+        renderScoreBoard();
     }
     else if (gLevel.LIVES === 0) {
         gGame.isOn = false
@@ -319,6 +320,9 @@ function resetLevel() {
             gLevel.SAFE_CLICKS = 5
             break;
     }
+    gIsBoardManual = false; 
+    gIsFirstClick = true;
+    gIsExterminateUsed = false; 
 }
 
 

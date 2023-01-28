@@ -105,7 +105,7 @@ function displayMegaHint() {
             for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++){
                 var cell = gBoard[i][j]
                 var elCell = document.querySelector(`.cell-${i}-${j}`);
-                if(cell.isMine) elCell.classList.remove('mine')
+                if(cell.isMine && !cell.isShown) elCell.classList.remove('mine')
                 if (!cell.isMine) elCell.classList.remove('mega-hint');
             }
         }
