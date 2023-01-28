@@ -31,6 +31,7 @@ body {
     border-radius: 10px;
 }
 
+
 .mode-btn:hover {
     transition: 0.3s;
     cursor: pointer;
@@ -59,7 +60,7 @@ label {
 
 table {
     margin: auto;
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 20px;
     border-spacing: 5px;
 }
@@ -85,7 +86,7 @@ a{
 
 
 .board-container {
-    background-color: rgb(1, 0, 70);
+    background: linear-gradient(rgb(0, 80, 146),rgb(1, 0, 70));
     border-radius: 50px;
     margin: auto;
     margin-top: 30px;
@@ -131,7 +132,7 @@ a{
 .score-container{
     border-radius: 30px;
     box-shadow: 10px 10px black;
-    background-color: #070063;
+    background: linear-gradient(rgba(39, 36, 218, 0.753),rgb(0, 80, 146));
     width: 450px;
     margin: auto;
     padding: 10px;
@@ -169,7 +170,8 @@ img {
     border-radius: 10px;
     font-size: 40px;
     padding: 0 20px;
-    margin: 5px 5px;
+    margin-top: 15px;
+    margin: 10px 5px;
 }
 
 .reset-btn img {
@@ -250,3 +252,17 @@ tbody .scoreboard-cell{
     text-align: left;
 }
 
+.modal {
+    transition: 1s; 
+    position: absolute;
+    background-color: #333;
+    margin-left: 40%;
+    margin-right: 40%;
+    border: 3px white solid;
+    border-radius: 30px;
+    padding: 20px;
+    margin-top: 50px;
+    left: 0;
+    right: 0;
+    display: none;
+}
