@@ -7,7 +7,8 @@ function getRandomIntInclusive(min, max) {
 }
 
 function renderCell(location, value) {
-    var cellSelector = '.' + getClassName(location.i,location.j)
+    var cellSelector = '.' + getClassName(location.i, location.j)
     var elCell = document.querySelector(cellSelector)
     elCell.innerHTML = value
 }
+

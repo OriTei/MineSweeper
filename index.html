@@ -21,15 +21,23 @@
         <div class="board-container">
             <div class="best-time">Best Time:<span></span></div>
             <div class="timer">00:00:00</div>
-            <button class="reset-btn" onclick="resetGame()">Restart</button>
-            <button class="reset-btn" onclick="undoLastMove()"><img src="img/undo.jpg"></button>
-
-
+            <div class="scoreboard"><a href="#scoreboard"></a></div>
+            <div>
+                <button class="reset-btn" onclick="resetGame()"></button>
+                
+            </div>
+            <button class="reset-btn undo-btn" onclick="undoMove()"><img src="img/undo.jpg"></button>
+            <button class="reset-btn set-btn" onclick="setMinesManually()"><img src="img/setmines.png"></button>
+            
+            
             <table>
                 <tbody class="board">
             </table>
             <button class="mode-btn safe-click" onclick="getSafeClick()"><span></span></button>
             <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
+            <br>
+
+            <button class="mode-btn" onclick="getMegaHint()">🔎</button>
             <button class="mode-btn" onclick="blowUpMines()">👽</button>
             <button class="mode-btn" onclick="setDarkMode()">Change Mode</button>
             <form>

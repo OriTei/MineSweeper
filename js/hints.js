@@ -1,8 +1,10 @@
 'use strict'
 
+var gMegaHintsPoss = [] 
+
 function renderHints() {
     var elHintBtn = document.querySelector('.hint-btn span');
-    elHintBtn.innerText = '💡'.repeat(gLevel.HINTS);
+    elHintBtn.innerText = HINT.repeat(gLevel.HINTS);
     if (gLevel.HINTS === 0) elHintBtn.innerText = '🆘'
 }
 
@@ -21,9 +23,11 @@ function getHint() {
 }
 
 function displayHint(elMine) {
+    gIsProcessing = true; 
     elMine.classList.add('hint');
     setTimeout(() => {
         elMine.classList.remove('hint');
+        gIsProcessing = false
     }, 2000);
 }
 
@@ -38,7 +42,6 @@ function getHintMine() {
 
 
 function getSafeClick() {
-    debugger;
     if (gLevel.SAFE_CLICKS === 0) return
     var safePos = getSafeClickPos();
     var elSafeClick = document.querySelector(`.cell-${safePos.i}-${safePos.j}`)
@@ -48,20 +51,21 @@ function getSafeClick() {
 }
 
 function displaySafeClick(elSafeClick) {
+    gIsProcessing = true
     elSafeClick.classList.add('safe');
     setTimeout(() => {
         elSafeClick.classList.remove('safe');
+        gIsProcessing = false
     }, 2000);
 }
 
 function getSafeClickPos() {
+    debugger;
     var randI = getRandomIntInclusive(0, gBoard.length - 1)
     var randJ = getRandomIntInclusive(0, gBoard.length - 1)
-    debugger;
-    while (gBoard[randI][randJ].isMine && !gBoard[randI][randJ].isShown) {
+    while (gBoard[randI][randJ].isMine || gBoard[randI][randJ].isShown) {
         var randI = getRandomIntInclusive(0, gBoard.length - 1);
         var randJ = getRandomIntInclusive(0, gBoard.length - 1);
-        resCell = gBoard[randI][randJ]
     }
     return { i: randI, j: randJ };
 }
@@ -70,5 +74,45 @@ function renderSafeClicks() {
     var elSafeClick = document.querySelector('.safe-click span');
     elSafeClick.innerText = SAFE_CLICK.repeat(gLevel.SAFE_CLICKS);
     if (gLevel.SAFE_CLICKS === 0) elSafeClick.innerText = '🆘'
+}
+
+function getMegaHint() {
+    gIsMegaHint = true;
+}
+
+function setMegaHintPos(i, j) {
+    gMegaHintsPoss.push({ i: i, j: j });
+    if (gMegaHintsPoss.length === 2) {
+        displayMegaHint()
+        gIsMegaHint = false
+        return;
+    }
+}
+
+function displayMegaHint() {
+    for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++){
+        for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++){
+            var cell = gBoard[i][j]
+            var elCell = document.querySelector(`.cell-${i}-${j}`);
+            if(cell.isMine) elCell.classList.add('mine')
+            if (!cell.isMine) elCell.classList.add('mega-hint')
+            
+        }
+    }
+    debugger
+    setTimeout(() => {
+        for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++){
+            for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++){
+                var cell = gBoard[i][j]
+                var elCell = document.querySelector(`.cell-${i}-${j}`);
+                if(cell.isMine) elCell.classList.remove('mine')
+                if (!cell.isMine) elCell.classList.remove('mega-hint');
+            }
+        }
+        gMegaHintsPoss = []
+    }, 3000);
+
+
+
 }
 

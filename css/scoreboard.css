@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: linear-gradient(rgb(30, 5, 119),rgb(158, 158, 240));
+    font-family: cursive;
+    height: 200vh;
+    text-align: center;
+    color: white;
+    font-size: 50px
+}
+

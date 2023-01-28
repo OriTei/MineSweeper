@@ -31,8 +31,8 @@ body {
 }
 
 .mode-btn:hover {
+    transition: 0.2s;
     cursor: pointer;
-    transition: 0.5s;
     background-color: #333;
     color: white;
 }
@@ -58,6 +58,7 @@ table {
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    border-spacing: 5px;
 }
 
 td img {
@@ -72,6 +73,16 @@ td {
     font-size: 30px;
 }
 
+a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+a:hover{
+    color: aqua;
+}
+
 .board-container {
     background-color: rgb(1, 0, 70);
     border-radius: 50px;
@@ -84,7 +95,11 @@ td {
 }
 
 .score {
-    font-size: 30px;
+    font-size: 50px;
+}
+
+.set-btn img{
+    border-radius: 10px;
 }
 
 .best-time {
@@ -116,7 +131,7 @@ td {
     border-radius: 30px;
     box-shadow: 10px 10px black;
     background-color: #070063;
-    width: 20%;
+    width: 450px;
     margin: auto;
     padding: 10px;
 }
@@ -144,6 +159,7 @@ img {
 }
 
 .reset-btn {
+    transition: 0.2s;
     border: none;
     margin-right: 5px;
     background-color: #333;
@@ -161,7 +177,6 @@ img {
 }
 
 .reset-btn:hover {
-    transition: 0.5s;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
 }
@@ -195,9 +210,26 @@ img {
     border: rgb(115, 255, 0) 3px solid;
 }
 
+.mega-hint{
+
+    background: none;
+    background-color: rgb(108, 206, 108);
+}
+
 footer {
     color: rgb(255, 255, 255);
     text-shadow: 5px 5px 5px black;
     font-size: 50px;
     margin-top: 50px;
+}
+
+#sboard{
+    text-align: left;
+    color: #070063;
+    background: none;
+}
+
+.manual{
+    background: none;
+    background-color: brown;
 }

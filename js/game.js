@@ -9,36 +9,47 @@ const MARK = '🤔'
 const HINT = '💡'
 const LIFE = '🤍'
 const DEATH = '💀'
-const SAFE_CLICK = '✅' 
+const SAFE_CLICK = '✅'
+const EMPTY = ''
 
 // Global Variables
 var gLevel = getLevel();
 var gGame
 var gBoard
 var gBoardSize
-var gMines
+var gMines = []
 var gIsFirstClick
 var gBestTime = Infinity
 var gCurrLevel = 'easy'
-var gBoards = [] // contains all moves
+var gBoards // contains all moves
+var gIsProcessing = false;
+var gIsMegaHint = false
+var gIsMineSet = false;
+var gLives = []
+var gIsBoardManual = false
 
 // when page load start the game 
 function onInit() {
+    gIsBoardManual = false; 
     gIsFirstClick = true;
     gGame = getGameState()
     gBoard = buildBoard()
+    gBoards = [];
     renderBoard(gBoard)
     renderHints();
     renderSafeClicks();
     updateScore()
     renderLife()
+    var copyBoard = copyCurrBoard(gBoard)
+    gBoards.push(copyBoard);
+    gLives.push(gLevel.LIVES);
 }
 
 
 // returns the board size and how many mines to set in the board
 function getLevel(elLevel) {
     var level = {
-        SIZE: 4, // change to radio button pick
+        SIZE: 5, // change to radio button pick
         MINES: 3,
         HINTS: 3,
         LIVES: 3,
@@ -68,7 +79,6 @@ function buildBoard() {
         }
     }
     gBoardSize = gLevel.SIZE * gLevel.SIZE;
-    gBoards.push(board);
     return board
 }
 
@@ -81,6 +91,7 @@ function getCell(cellI, cellJ) {
         },
         minesAroundCount: 0,
         isShown: false,
+        isClicked: false,
         isMine: false,
         isMarked: false,
     }
@@ -123,14 +134,27 @@ function getClassName(i, j) {
 // when a cell is clicked function 
 function onCellClicked(elCell, i, j) {
     var currCell = gBoard[i][j]
+    currCell.isClicked = true
+    if (gIsMegaHint) {
+        setMegaHintPos(i, j);
+        return;
+    }
+    if (gIsMineSet) {
+        getWantedMineSpot(i, j)
+        return;
+    }
+    if (gIsProcessing) return;
     if (gIsFirstClick) handleFirstClick(elCell, currCell)
     if (currCell.isMarked) return;
     if (currCell.isShown || !gGame.isOn) return;
-    if (!currCell.isMine) onEmptyClicked(elCell, currCell);
+    if (!currCell.isMine || currCell.isBlown) onEmptyClicked(elCell, currCell);
     else onMineClicked(currCell, i, j);
     updateScore();
+    debugger;
     checkGameOver();
-    pushLastBoard(); 
+    var currBoardCopy = copyCurrBoard();
+    gBoards.push(currBoardCopy)
+    gLives.push(gLevel.LIVES);
 }
 
 // handles the game first click
@@ -138,85 +162,51 @@ function handleFirstClick(elCell, currCell) {
     gIsFirstClick = false;
     gGame.isOn = true;
     startTimer();
-    setBoardMines(currCell);
+    // if board was not set, set random mines
+    if (!gIsBoardManual) setBoardMines(currCell);
     onEmptyClicked(elCell, currCell);
     updateScore();
+    var currBoardCopy = copyCurrBoard();
+    gBoards.push(currBoardCopy)
+    checkGameOver();
 }
 
 // when the user clicks on a regular cell expand his non mine negs
 function onEmptyClicked(elCell, cell) {
+    if (cell.isMine) { 
+        onMineClicked(cell)
+        return;
+    } 
+    cell.isShown = true
     elCell.classList.add('selected');
-    cell.isShown = true;
-    gGame.shownCount++;
-    expandShown(gBoard, cell);
+    expandShownAll(gBoard, cell);
 }
 
-// expands the board
-function expandShown(board, cell) {
+
+function expandShownAll(board, cell) {
     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
-        if (i < 0 || i >= board.length) continue
+        if (i < 0 || i >= board.length) continue;
         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
             if (j < 0 || j >= board.length) continue
             var currCell = board[i][j]
-            var currElCell = document.querySelector(`.cell-${i}-${j}`);
-            if (currCell.isMarked || currCell.isShown) continue;
-            if (currCell.isMine || i === cell.pos.i && j === cell.pos.j) continue
-            if (currCell.minesAroundCount !== 0 && !currCell.isShown) currElCell.innerText = currCell.minesAroundCount;
-            currElCell.classList.add('selected');
-            currCell.isShown = true;
-            gGame.shownCount++
+            var currElCell = document.querySelector(`.cell-${currCell.pos.i}-${currCell.pos.j}`);
+            if (currCell.isMine) continue
+            if (!currCell.isShown && currCell.minesAroundCount > 0 && !currCell.isMine) {
+                currCell.isShown = true
+                currElCell.classList.add('selected');
+                currElCell.innerText = currCell.minesAroundCount;
+                gGame.shownCount++;
+            }
+            else if (currCell.minesAroundCount === 0 && !currCell.isShown) {
+                currCell.isShown = true
+                currElCell.classList.add('selected');
+                gGame.shownCount++;
+                expandShownAll(board, currCell);
+            }
         }
     }
 }
 
-// function undoLastMove() {
-//     if (!gGame.isOn) {
-//         alert('cant undo before first move!')
-//         return
-//     } 
-//     gBoards.pop();
-//     renderBoard();
-// }
-
-//
-// function expandShownAll(board, cell) {
-//     debugger
-//     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
-//         if (i < 0 || i >= board.length) return;
-//         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
-//             if (j < 0 || j >= board.length) return
-//             var currCell = board[i][j]
-//             var currElCell = document.querySelector(`.cell-${i}-${j}`);
-//             if (currCell.isMarked || currCell.isShown) return;
-//             if (currCell.isMine || i === cell.pos.i && j === cell.pos.j) continue
-//             if (currCell.minesAroundCount === 0 && !currCell.isShown) expandShownAll(board, currCell);
-//             if (currCell.minesAroundCount !== 0 && !currCell.isShown)
-//                 currElCell.innerText = currCell.minesAroundCount;
-//             currElCell.classList.add('selected');
-//             currCell.isShown = true;
-//         }
-//     }
-// }
-
-
-// function expandShownAll(board, cell) {
-//     debugger;
-//     for (var i = cell.pos.i - 1; i <= cell.pos.i + 1; i++) {
-//         if (i < 0 || i >= board.length) return;
-//         for (var j = cell.pos.j - 1; j <= cell.pos.j + 1; j++) {
-//             if (j < 0 || j >= board.length) return
-//             var currCell = board[i][j]
-//             var currElCell = document.querySelector(`.cell-${i}-${j}`);
-//             var currMinesAround = currCell.minesAroundCount;
-//             if (currMinesAround === 0) expandShownAll(board, currCell)
-//             currCell.isShown = true;
-//             if (!currCell.isMine) {
-//                 currElCell.classList.add('selected')
-//                 if(currMinesAround !== 0) currElCell.innerText = currMinesAround;
-//             }
-//         }
-//     }
-// }
 
 // called when a cell is right clicked, adds a mark to the cell
 function onCellMarked(elCell, i, j) {
@@ -251,11 +241,13 @@ function checkMarked() {
 
 // if all non-mine spots are shown its a win  
 function checkGameOver() {
-    if (gBoardSize - gLevel.MINES === gGame.shownCount) {
+    if (gBoardSize - gMines.length === gGame.shownCount) {
         gGame.isOn = false;
         renderPicture(WIN_IMG)
         stopTimer()
         setGameTime();
+        // createScoreBoard();
+        // renderScoreBoard();
     }
     else if (gLevel.LIVES === 0) {
         gGame.isOn = false
@@ -267,10 +259,17 @@ function checkGameOver() {
 
 // resets the board for a new game
 function cleanBoard() {
-    var elTds = document.querySelectorAll('.selected')
-    for (var i = 0; i < elTds.length; i++) {
-        elTds[i].classList.remove('mine', 'selected', 'marked')
+    var elMineTds = document.querySelectorAll('.mine')
+    for (var i = 0; i < elMineTds.length; i++) {
+        elMineTds[i].classList.remove('mine')
+        gGame.shownCount--;
     }
+    var elSelectedTds = document.querySelectorAll('.selected')
+    for (var i = 0; i < elSelectedTds.length; i++) {
+        elSelectedTds[i].classList.remove('selected')
+        gGame.shownCount--;
+    }
+    updateScore()
 }
 
 
@@ -299,7 +298,7 @@ function updateScore() {
 function resetLevel() {
     switch (gCurrLevel) {
         case 'easy':
-            gLevel.SIZE = 4
+            gLevel.SIZE = 5
             gLevel.MINES = 3
             gLevel.HINTS = 3
             gLevel.LIVES = 3
@@ -342,3 +341,58 @@ function setDarkMode() {
     elBody.classList.toggle('dark-mode');
 }
 
+function undoMove() {
+    if (gBoards.length === 1) return;
+    gBoards.pop()
+    gLives.pop()
+    setPrevBoard(gBoards[gBoards.length - 1]);
+    if (gLives.length === 0) return
+    gLevel.LIVES = gLives[gLives.length - 1];
+    updateScore()
+    renderLife()
+}
+
+function setPrevBoard(prevBoard) {
+    cleanBoard();
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var currCell = prevBoard[i][j];
+            var elCurrCell = document.querySelector(`.cell-${i}-${j}`);
+            if (currCell.isShown) elCurrCell.classList.add('selected')
+            if (!currCell.isShown) {
+                elCurrCell.innerText = EMPTY
+                gBoard[i][j].isShown = false
+            }
+            if (currCell.isShown && currCell.isMine) elCurrCell.classList.add('mine')
+            if (currCell.isShown && currCell.minesAroundCount > 0 && !gBoard[i][j].isClicked) elCurrCell.innerText = currCell.minesAroundCount
+            if (currCell.isShown && currCell.minesAroundCount === 0) elCurrCell.innerText = EMPTY
+        }
+    }
+
+}
+
+function copyCurrBoard() {
+    var res = [];
+    for (var i = 0; i < gBoard.length; i++) {
+        res[i] = []
+        for (var j = 0; j < gBoard.length; j++) {
+            var copyCell = getCellCopy(gBoard[i][j])
+            res[i][j] = copyCell;
+        }
+    }
+    return res;
+}
+
+function getCellCopy(cell) {
+    var res = {
+        pos: {
+            i: cell.pos.i,
+            j: cell.pos.j,
+        },
+        minesAroundCount: cell.minesAroundCount,
+        isShown: cell.isShown,
+        isMine: cell.isMine,
+        isMarked: cell.isMarked,
+    }
+    return res;
+}

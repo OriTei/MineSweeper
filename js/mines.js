@@ -8,13 +8,13 @@ function DisplayAllMines() {
         var elMine = document.querySelector(`.cell-${pos.i}-${pos.j}`);
         elMine.classList.add('mine');
         renderCell(pos, MINE_IMG)
+        mineSound.play();
     }
 }
 
 // end game if the player clicked on a mine 
 function onMineClicked(currCell) {
     currCell.isShown = true;
-    mineSound.play();
     gLevel.LIVES--;
     renderCell(currCell.pos, MINE_IMG)
     var elCell = document.querySelector(`.cell-${currCell.pos.i}-${currCell.pos.j}`)
@@ -25,6 +25,7 @@ function onMineClicked(currCell) {
 
 // set the mines on board
 function setBoardMines(cell) {
+    if (gIsMineSet) return
     gMines = [];
     for (var i = 0; i < gLevel.MINES; i++) {
         var currPos = getFreePos(cell);
@@ -33,6 +34,7 @@ function setBoardMines(cell) {
         gBoard[currPos.i][currPos.j].isShown = false;
         gGame.shownCount--;
         elCurrPos.classList.remove('selected');
+        gBoard[currPos.i][currPos.j].isBlown = false;
         gMines.push(gBoard[currPos.i][currPos.j]);
     }
     setMinesNegsCount(gBoard)
@@ -75,14 +77,57 @@ function setCellMineNegs(cell, board) {
 }
 
 function blowUpMines() {
-    debugger;
-    if (gIsFirstClick) return;
-    while (gMines.length > 0) {
-        var currMine = gMines[0];
-        currMine.isMine = false;
+    var counter = 0;
+    if (gIsFirstClick) return
+    for (var i = 0; i < gMines.length && counter < 3; i++) {
+        var randIdx = getRandomIntInclusive(0, gMines.length - 1)
+        var currMine = gMines[randIdx]
         var elCurrMine = document.querySelector(`.cell-${currMine.pos.i}-${currMine.pos.j}`)
-        elCurrMine.classList.remove('mine')
-        gMines.splice(0, 1);
+        if (currMine.isShown) continue
+        currMine.isBlown = true
+        currMine.isShown = false;
+        displaySafeClick(elCurrMine)
+        gMines.splice(randIdx, 1)
+        gLevel.MINES--;
+        counter++
     }
+}
 
+function setMinesManually() {
+    gIsBoardManual = true; 
+    if (!gIsFirstClick) { 
+        alert('cant set manually during game')
+        return
+    } 
+    // when finished set
+    if (gIsMineSet) {
+        setMinesNegsCount(gBoard);
+        gIsMineSet = false
+        clearSetCells() 
+    } 
+    // when start set 
+    else {
+        gIsMineSet = true
+        gMines = [];
+    } 
+}
+
+function getWantedMineSpot(i, j) {
+    console.log('select mine pos')
+    var currCell = gBoard[i][j]
+    var elCurrCell = document.querySelector(`.cell-${i}-${j}`);
+    currCell.isMine = true
+    currCell.isShown = false;
+    gGame.shownCount--;
+    elCurrCell.classList.remove('selected');
+    elCurrCell.classList.add('manual')
+    currCell.isBlown = false;
+    gMines.push(currCell);
+}
+
+function clearSetCells() {
+    var elSets = document.querySelectorAll('.manual')
+    for (var i = 0; i < elSets.length; i++){
+        elSets[i].classList.remove('manual');
+    }
 }
