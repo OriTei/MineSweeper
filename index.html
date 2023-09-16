@@ -15,17 +15,12 @@
         rel="stylesheet">
 </head>
 
-<!-- onload="onInit()" -->
 
 <body onload="onInit()">
     <div class="mode">
-        <h1 class='main-header'>Mine Sweeper</h1>
-        <div class="score-container">
-            <div class="score">Score: <span></span></div>
-            <div class="lives">Lives left :  <span></span></div>
-        </div>
+        <h1 class='main-header'>Mine💣Sweeper </h1>
         <div class="board-container">
-            <div class="best-time">Best Current Time :<span></span></div>
+            <div class="best-time">Best Time:<span>No score yet</span></div>
             <div class="timer">00:00:00</div>
             <div class="top-btns">
                 <button class="reset-btn undo-btn" onclick="undoMove()"><img src="img/undo.jpg"></button>
@@ -33,20 +28,17 @@
                 <button class="reset-btn set-btn" onclick="setMinesManually()"><img src="img/setmines.png"></button>
             </div>
 
-            <div class="modal">
-                <h2></h2>
-            </div>
+
 
             <table>
                 <tbody class="board" id="main-board">
             </table>
-            <button class="mode-btn safe-click" onclick="getSafeClick()"><span></span></button>
-            <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
-            <br>
-
-            <button class="mode-btn" onclick="getMegaHint()">🔎</button>
-            <button class="mode-btn" onclick="setDarkMode()">Change Mode</button>
-            <button class="mode-btn" onclick="blowUpMines()">👽</button>
+            <div class="help-btns-container">
+                <button class="mode-btn safe-click" onclick="getSafeClick()"><span></span></button>
+                <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
+                <button class="mode-btn" onclick="getMegaHint()">🔎</button>
+                <button class="mode-btn" onclick="blowUpMines()">👽</button>
+            </div>
             <form>
                 <input type="radio" id="easy" name="mode" value="easy" onclick="setDifficulty(this)" checked>
                 <label for="mode">Easy</label><br>
@@ -54,6 +46,7 @@
                 <label for="mode">Medium</label><br>
                 <input type="radio" id="Extreme" name="mode" value="hard" onclick="setDifficulty(this)">
                 <label for="mode">Hard</label>
+
             </form>
         </div>
     </div>
@@ -67,6 +60,7 @@
     <script src="js/mines.js"></script>
     <script src="js/util.js"></script>
 </body>
-<footer>Ori Teicher &copy;</footer>
+
+<footer>Ori Teicher <span>&copy;</span></footer>
 
 </html>

@@ -11,7 +11,7 @@ function renderHints() {
 function getHint() {
     if (gIsFirstClick || !gGame.isOn)
     {
-        displayModal();
+        alert('cant use hint before first click');
         return;
     }    
     if (gLevel.HINTS === 0) return

@@ -1,16 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Outfit:wght@300&family=Poppins&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
+
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
 }
 
-
+body::-webkit-scrollbar {
+    display: none;
+}
 
 body {
+    background: #159957;
+    background: -webkit-linear-gradient(to right, #155799, #159957);
+    background: linear-gradient(to right, #155799, #159957);
     text-align: center;
     color: white;
-    background: linear-gradient(rgb(135, 124, 175),rgb(1, 1, 102));
-    height: 350vh;
-    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient();
+    min-height: 100vh;
 }
 
 .dark-mode {
@@ -23,29 +31,26 @@ body {
     border: none;
     margin: auto;
     margin: 5px 5px;
-    box-shadow: 5px 5px rgb(160, 160, 160);
-    font-family: cursive;
     margin-top: 5px;
     padding: 5px;
     font-size: 30px;
     border-radius: 10px;
 }
 
-
 .mode-btn:hover {
     transition: 0.3s;
     cursor: pointer;
-    background-color: #333;
-    box-shadow: 1px 1px whitesmoke;
+
+    transition: 0.2s scale ease-in-out;
     color: white;
 }
 
 
-h1 {
-    margin: 30px 0;
+
+.main-header {
     font-size: 50px;
-    text-shadow: 5px 5px blue;
-    font-family: cursive;
+    background-color: #333;
+    background: linear-gradient(rgba(135, 206, 250, 0.192), rgba(32, 178, 171, 0.11), rgba(0, 0, 0, 0.178))
 }
 
 form {
@@ -59,8 +64,7 @@ label {
 }
 
 table {
-    margin: auto;
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 20px;
     border-spacing: 5px;
 }
@@ -77,7 +81,7 @@ td {
     font-size: 30px;
 }
 
-a{
+a {
     text-decoration: none;
     color: white;
     font-size: 20px;
@@ -86,27 +90,22 @@ a{
 
 
 .board-container {
-    background: linear-gradient(rgb(0, 80, 146),rgb(1, 0, 70));
-    border-radius: 50px;
-    margin: auto;
-    margin-top: 30px;
-    padding: 20px;
-    width: 50%;
-    box-shadow: 15px 15px rgb(0, 0, 0);
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .score {
     font-size: 50px;
 }
 
-.set-btn img{
+.set-btn img {
     border-radius: 10px;
 }
 
 .best-time {
     border: 2px white;
-    box-shadow: 5px 5px rgb(148, 148, 148);
     padding: 10px;
     text-align: center;
     background-color: #333;
@@ -115,28 +114,20 @@ a{
     margin: auto;
     font-size: 35px;
     margin-top: 10px;
-    width: 60%;
+    width: fit-content;
 }
 
 .timer {
-    box-shadow: 5px 5px rgb(148, 148, 148);
+    margin-top: 20px;
     background-color: #333;
-    margin: auto;
     border-radius: 20px;
-    width: 40%;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    width: fit-content;
+    padding: 5px 10px;
     font-size: 35px;
+    margin-bottom: 10px;
 }
 
-.score-container{
-    border-radius: 30px;
-    box-shadow: 10px 10px black;
-    background: linear-gradient(rgba(39, 36, 218, 0.753),rgb(0, 80, 146));
-    width: 450px;
-    margin: auto;
-    padding: 10px;
-}
+.score-container {}
 
 .lives {
     font-size: 30px;
@@ -164,14 +155,11 @@ img {
     border: none;
     margin-right: 5px;
     background-color: #333;
-    box-shadow: 5px 5px rgb(148, 148, 148);
     height: 90px;
     width: 90px;
     border-radius: 10px;
-    font-size: 40px;
     padding: 0 20px;
-    margin-top: 15px;
-    margin: 10px 5px;
+    margin: 5px 5px;
 }
 
 .reset-btn img {
@@ -182,7 +170,6 @@ img {
 .reset-btn:hover {
     cursor: pointer;
     background-color: rgb(255, 255, 255);
-    box-shadow: 3px 1px  rgb(83, 83, 83);
 }
 
 .selected {
@@ -208,42 +195,39 @@ img {
 
 .hint {
     background: none;
-    background: linear-gradient(red,lightcoral);
+    background: linear-gradient(red, lightcoral);
 }
 
-.safe{
+.safe {
     background: none;
-    background: linear-gradient(lime,green);
+    background: linear-gradient(lime, green);
 }
 
-.mega-hint{
-
+.mega-hint {
     background: none;
     background-color: rgb(108, 206, 108);
 }
 
 footer {
+    display: block;
     color: rgb(255, 255, 255);
-    text-shadow: 5px 5px 5px black;
     font-size: 50px;
-    margin-top: 50px;
 }
 
-#sboard{
+#sboard {
     text-align: left;
     color: #070063;
     background: none;
 }
 
-.manual{
+.manual {
     background: none;
     background-color: brown;
 }
 
 
-tbody .scoreboard-cell{
+tbody .scoreboard-cell {
     background: linear-gradient(rgb(41, 41, 75), rgb(15, 15, 71));
-    border-radius: 10px;
     font-family: 'Open Sans', sans-serif;
     text-align: left;
     color: rgb(243, 243, 243);
@@ -252,17 +236,61 @@ tbody .scoreboard-cell{
     text-align: left;
 }
 
-.modal {
-    transition: 1s; 
-    position: absolute;
+.help-btns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.top-btns {
+    display: flex;
+}
+
+.top-btns button {
+    border-radius: 50%;
+}
+
+button {
+    transition: 0.1s ease-in-out scale;
+}
+
+button:hover {
+    scale: 1.1;
+}
+
+.help-btns-container {
+    display: grid;
+    justify-content: space-evenly;
+    width: fit-content;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.help-btns-container button {
     background-color: #333;
-    margin-left: 40%;
-    margin-right: 40%;
-    border: 3px white solid;
-    border-radius: 30px;
-    padding: 20px;
-    margin-top: 50px;
-    left: 0;
-    right: 0;
-    display: none;
+    padding: 0;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s ease-in-out scale;
+}
+
+.topbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
