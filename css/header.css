@@ -1,6 +1,7 @@
 header {
     z-index: 500;
     position: fixed;
+    margin-inline-start: 15px;
     top: 0;
     width: 100%;
     display: flex;

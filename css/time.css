@@ -1,7 +1,5 @@
 .time-container {
-    position: absolute;
-    padding-top: 100px;
-    top: 0;
+
     display: flex;
     width: 100%;
     align-items: center;
@@ -25,7 +23,10 @@
     background-color: #ffffff21;
     border-radius: 20px;
     width: 150px;
-    padding: 5px 20px;
+    padding: 5px 0px;
     font-size: 35px;
+    text-shadow: 1px 1px 1px black;
+    width: 250px;
+
     outline: 3px solid rgba(255, 255, 255, 0.295);
 }
