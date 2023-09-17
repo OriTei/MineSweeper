@@ -24,8 +24,7 @@ function createScoreBoard() {
         var key = localStorage.key(i);
         var value = localStorage.getItem(key);
         if (gScores.includes({ name: key })) continue;
-        gScores.push({ name: key, score: value});
-    
+        gScores.push({ name: key, score: value });
     }
     gScores.sort();
 }
@@ -36,13 +35,13 @@ function renderScoreBoard() {
     for (var i = 0; i < gScores.length; i++) {
         strHTML += '<tr>\n'
         for (var j = 0; j < 1; j++) {
-            strHTML += `<td class="scoreboard-pos">${i+1}</td><td class="scoreboard-cell">Name: ${gScores[i].name}\n</td>
-            <td class="scoreboard-cell"> Time: ${gScores[i].score} seconds</td>\n`;
+            strHTML += `<td class="scoreboard-pos">${i + 1}</td><td class="scoreboard-cell">${gScores[i].name}\n</td>
+            <td class="scoreboard-cell">${gScores[i].score}s</td>\n`;
             strHTML += '</td>\n'
         }
         strHTML += '</tr>\n'
     }
-    debugger
+
     var elScoreBoard = document.querySelector('.scoreboard-table')
     elScoreBoard.innerHTML = strHTML
 }

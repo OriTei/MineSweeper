@@ -106,7 +106,7 @@ function blowUpMines() {
 function setMinesManually() {
     gIsBoardManual = true;
     if (!gIsFirstClick) {
-        displayModal()
+        alert('cant set manually during game')
         return
     }
     // when finished set

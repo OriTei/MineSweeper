@@ -5,12 +5,12 @@ const LOST_IMG = '<img src="img/game-over.png">\n'
 const START_IMG = '<img src="img/game-start.png">\n'
 const WIN_IMG = '<img src="img/game-win.png">\n'
 const MINE_IMG = '<img src="img/mine.png">\n'
-const MARK = '🤔'
-const HINT = '💡'
-const LIFE = '🤍'
+const LIFE = '🔴'
 const DEATH = '💀'
 const SAFE_CLICK = '✅'
 const EMPTY = ''
+const HINT = '💡'
+const MARK = '🤔'
 
 // Global Variables
 var gLevel = getLevel();
@@ -21,8 +21,8 @@ var gMines = []
 var gIsFirstClick
 var gBestTime = Infinity
 var gCurrLevel = 'easy'
-var gBoards // contains all moves
 var gIsProcessing = false;
+var gBoards // contains all moves
 var gIsMegaHint = false
 var gIsMineSet = false;
 var gLives = []
@@ -49,7 +49,7 @@ function onInit() {
 
 
 // returns the board size and how many mines to set in the board
-function getLevel(elLevel) {
+function getLevel() {
     var level = {
         SIZE: 5, // change to radio button pick
         MINES: 3,
@@ -404,7 +404,7 @@ function getCellCopy(cell) {
 function displayModal() {
     var elModal = document.querySelector('.modal');
     var elMsg = document.querySelector('.modal h2')
-    elModal.style.display = 'block';
+    elModal.style.display = 'none';
     elMsg.innerText = 'Cant Use at This Stage of The Game 😔';
     setTimeout(() => {
         elModal.style.display = 'none';
