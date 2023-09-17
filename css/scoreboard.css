@@ -1,38 +1,22 @@
-.scoreboard-pos {
-    font-size: 40px;
-    padding: 0px 20px;
-    text-align: center;
-    background: none;
-    border-radius: 10px;
-}
-
 .scoreboard-table {
-    width: 30vw;
-    height: 30vh;
-    margin: auto;
-    position: absolute;
-    top: 0;
     right: 0;
     z-index: 200;
     transform: translate(0%, 100px);
     overflow: auto;
 }
 
-.scoreboard-pos {
-    background-color: #333;
-}
-
 .scoreboard-table .scoreboard-cell {
-    background: linear-gradient(#1d7cdb25, #19b668a4);
-    font-family: 'Open Sans', sans-serif;
-    text-align: center;
+    background: none;
+    background-color: #ffffff21;
+    border-radius: 20px;
     color: rgb(243, 243, 243);
-    text-align: left;
 }
 
-
-.score {
+.scoreboard-pos {
     font-size: 40px;
-    padding: 5px 10px;
-    text-shadow: 1px 1px 1px black;
+    padding: 0px 20px;
+    text-align: center;
+    background: none;
+    border-radius: 10px;
+    background-color: #00ccff5b;
 }
