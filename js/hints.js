@@ -4,8 +4,8 @@ var gMegaHintsPoss = []
 
 function renderHints() {
     var elHintBtn = document.querySelector('.mine-hint span');
-    elHintBtn.innerText = HINT + `${gLevel.HINTS}`;
-    if (gLevel.HINTS === 0) elHintBtn.innerText = ''
+    elHintBtn.innerHTML =  `${HINT} <span style="color: #fff;">${gLevel.HINTS}</span>`;
+    if (gLevel.HINTS === 0) elHintBtn.innerText = '🚫'
 }
 
 function getHint() {
@@ -71,8 +71,8 @@ function getSafeClickPos() {
 
 function renderSafeClicks() {
     var elSafeClick = document.querySelector('.safe-click span');
-    elSafeClick.innerText = SAFE_CLICK + gLevel.SAFE_CLICKS;
-    if (gLevel.SAFE_CLICKS === 0) elSafeClick.innerText = '🆘'
+    elSafeClick.innerHTML = `${SAFE_CLICK} <span style="color: #fff;">${gLevel.SAFE_CLICKS}</span>`;
+    if (gLevel.SAFE_CLICKS === 0) elSafeClick.innerText = '🚫'
 }
 
 function getMegaHint() {

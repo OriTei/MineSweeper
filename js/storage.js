@@ -9,7 +9,7 @@ function setGameTime() {
     var elBestTime = document.querySelector('.best-time span');
     var bestTime = Math.min(gBestTime, gGame.secsPassed);
     gBestTime = bestTime;
-    setLocalStorage(pName, gGame.secsPassed)
+    setLocalStorage((pName.length > 8) ? pName.slice(0,8) + '..  .' : pName, gGame.secsPassed)
     elBestTime.innerText = ' ' + bestTime + 's';
 }
 
@@ -35,8 +35,8 @@ function renderScoreBoard() {
     for (var i = 0; i < gScores.length; i++) {
         strHTML += '<tr>\n'
         for (var j = 0; j < 1; j++) {
-            strHTML += `<td class="scoreboard-pos">${i + 1}</td><td class="scoreboard-cell">${gScores[i].name}\n</td>
-            <td class="scoreboard-cell">${gScores[i].score}s</td>\n`;
+            strHTML += `<td class="scoreboard-pos">${i + 1}</td><td class="scoreboard-cell name">${gScores[i].name}\n</td>
+            <td class="scoreboard-cell time">${gScores[i].score}s</td>\n`;
             strHTML += '</td>\n'
         }
         strHTML += '</tr>\n'

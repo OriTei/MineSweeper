@@ -7,10 +7,12 @@ const WIN_IMG = '<img src="img/game-win.png">\n'
 const MINE_IMG = '<img src="img/mine.png">\n'
 const LIFE = '🔴'
 const DEATH = '💀'
-const SAFE_CLICK = '✅'
+const SAFE_CLICK = '<i class="fa-solid fa-square-check" style="color: lightgreen;"></i>'
 const EMPTY = ''
-const HINT = '💡'
+const HINT = '<i class="fa-solid fa-lightbulb" style="color: yellow;"></i>'
 const MARK = '🤔'
+const ALIEN = '👽'
+const MOON = '🌙'
 
 // Global Variables
 var gLevel = getLevel();
@@ -51,8 +53,8 @@ function onInit() {
 // returns the board size and how many mines to set in the board
 function getLevel() {
     var level = {
-        SIZE: 5, // change to radio button pick
-        MINES: 3,
+        SIZE: 7, // change to radio button pick
+        MINES: 8,
         HINTS: 3,
         LIVES: 3,
         SAFE_CLICKS: 3,
@@ -299,22 +301,22 @@ function updateScore() {
 function resetLevel() {
     switch (gCurrLevel) {
         case 'easy':
-            gLevel.SIZE = 5
-            gLevel.MINES = 3
+            gLevel.SIZE = 7
+            gLevel.MINES = 8
             gLevel.HINTS = 3
             gLevel.LIVES = 3
             gLevel.SAFE_CLICKS = 3
             break
         case 'medium':
-            gLevel.SIZE = 8
-            gLevel.MINES = 14
+            gLevel.SIZE = 9
+            gLevel.MINES = 24
             gLevel.HINTS = 5
             gLevel.LIVES = 4
             gLevel.SAFE_CLICKS = 4
             break
         case 'hard':
             gLevel.SIZE = 12
-            gLevel.MINES = 20
+            gLevel.MINES = 40
             gLevel.HINTS = 7
             gLevel.LIVES = 5
             gLevel.SAFE_CLICKS = 5
