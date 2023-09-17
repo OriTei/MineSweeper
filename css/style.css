@@ -12,12 +12,9 @@ body::-webkit-scrollbar {
 }
 
 body {
-    background: #159957;
-    background: -webkit-linear-gradient(to right, #155799, #159957);
     background: linear-gradient(to right, #155799, #159957);
     text-align: center;
     color: white;
-    background: linear-gradient();
     min-height: 100vh;
 }
 
@@ -43,14 +40,6 @@ body {
 
     transition: 0.2s scale ease-in-out;
     color: white;
-}
-
-
-
-.main-header {
-    font-size: 50px;
-    background-color: #333;
-    background: linear-gradient(rgba(135, 206, 250, 0.192), rgba(32, 178, 171, 0.11), rgba(0, 0, 0, 0.178))
 }
 
 form {
@@ -89,49 +78,22 @@ a {
 
 
 
-.board-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.score {
-    font-size: 50px;
-}
-
 .set-btn img {
     border-radius: 10px;
 }
 
-.best-time {
-    border: 2px white;
-    padding: 10px;
-    text-align: center;
-    background-color: #333;
-    border-radius: 20px;
-    padding-left: 10px;
-    margin: auto;
-    font-size: 35px;
-    margin-top: 10px;
-    width: fit-content;
-}
 
-.timer {
-    margin-top: 20px;
-    background-color: #333;
-    border-radius: 20px;
-    width: fit-content;
-    padding: 5px 10px;
-    font-size: 35px;
-    margin-bottom: 10px;
-}
 
-.score-container {}
 
 .lives {
     font-size: 30px;
+    text-shadow: 1px 1px 1px black;
 }
+
+.lives span {
+    text-shadow: 3px 3px 1px rgb(0, 0, 0);
+}
+
 
 .cell {
     background-color: aliceblue;
@@ -226,15 +188,6 @@ footer {
 }
 
 
-tbody .scoreboard-cell {
-    background: linear-gradient(rgb(41, 41, 75), rgb(15, 15, 71));
-    font-family: 'Open Sans', sans-serif;
-    text-align: left;
-    color: rgb(243, 243, 243);
-    padding: 20px;
-    margin: auto;
-    text-align: left;
-}
 
 .help-btns-container {
     display: grid;
@@ -254,6 +207,8 @@ a {
 
 .top-btns {
     display: flex;
+    gap: 2px;
+
 }
 
 .top-btns button {
@@ -279,6 +234,13 @@ button:hover {
 .help-btns-container button {
     background-color: #333;
     padding: 0;
+
+    .topbar-container {
+        display: flex;
+        flex-direction: column;
+        background-color: #070063;
+    }
+
     margin: 0;
     padding: 5px 10px;
     border-radius: 8px;

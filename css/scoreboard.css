@@ -2,8 +2,37 @@
     font-size: 40px;
     padding: 0px 20px;
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: none;
-    background-color: rgb(214, 212, 212);
     border-radius: 10px;
+}
+
+.scoreboard-table {
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+    transform: translate(0%, 100px);
+    overflow: auto;
+}
+
+.scoreboard-pos {
+    background-color: #333;
+}
+
+.scoreboard-table .scoreboard-cell {
+    background: linear-gradient(#1d7cdb25, #19b668a4);
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    color: rgb(243, 243, 243);
+    text-align: left;
+}
+
+
+.score {
+    font-size: 40px;
+    padding: 5px 10px;
+    text-shadow: 1px 1px 1px black;
 }

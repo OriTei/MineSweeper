@@ -1,6 +1,6 @@
 'use strict'
 
-var gMegaHintsPoss = [] 
+var gMegaHintsPoss = []
 
 function renderHints() {
     var elHintBtn = document.querySelector('.hint-btn span');
@@ -9,11 +9,10 @@ function renderHints() {
 }
 
 function getHint() {
-    if (gIsFirstClick || !gGame.isOn)
-    {
-        alert('cant use hint before first click');
+    if (gIsFirstClick || !gGame.isOn) {
+        displayModal();
         return;
-    }    
+    }
     if (gLevel.HINTS === 0) return
     var mine = getHintMine();
     var elMine = document.querySelector(`.cell-${mine.pos.i}-${mine.pos.j}`)
@@ -23,7 +22,7 @@ function getHint() {
 }
 
 function displayHint(elMine) {
-    gIsProcessing = true; 
+    gIsProcessing = true;
     elMine.classList.add('hint');
     setTimeout(() => {
         elMine.classList.remove('hint');
@@ -60,7 +59,7 @@ function displaySafeClick(elSafeClick) {
 }
 
 function getSafeClickPos() {
-    debugger;
+
     var randI = getRandomIntInclusive(0, gBoard.length - 1)
     var randJ = getRandomIntInclusive(0, gBoard.length - 1)
     while (gBoard[randI][randJ].isMine || gBoard[randI][randJ].isShown) {
@@ -90,22 +89,22 @@ function setMegaHintPos(i, j) {
 }
 
 function displayMegaHint() {
-    for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++){
-        for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++){
+    for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++) {
+        for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++) {
             var cell = gBoard[i][j]
             var elCell = document.querySelector(`.cell-${i}-${j}`);
-            if(cell.isMine) elCell.classList.add('mine')
+            if (cell.isMine) elCell.classList.add('mine')
             if (!cell.isMine) elCell.classList.add('mega-hint')
-            
+
         }
     }
-    debugger
+
     setTimeout(() => {
-        for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++){
-            for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++){
+        for (var i = gMegaHintsPoss[0].i; i <= gMegaHintsPoss[1].i; i++) {
+            for (var j = gMegaHintsPoss[0].j; j <= gMegaHintsPoss[1].j; j++) {
                 var cell = gBoard[i][j]
                 var elCell = document.querySelector(`.cell-${i}-${j}`);
-                if(cell.isMine && !cell.isShown) elCell.classList.remove('mine')
+                if (cell.isMine && !cell.isShown) elCell.classList.remove('mine')
                 if (!cell.isMine) elCell.classList.remove('mega-hint');
             }
         }
@@ -115,4 +114,3 @@ function displayMegaHint() {
 
 
 }
-

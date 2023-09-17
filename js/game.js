@@ -7,7 +7,7 @@ const WIN_IMG = '<img src="img/game-win.png">\n'
 const MINE_IMG = '<img src="img/mine.png">\n'
 const MARK = '🤔'
 const HINT = '💡'
-const LIFE = '🤍'
+const LIFE = '🔴'
 const DEATH = '💀'
 const SAFE_CLICK = '✅'
 const EMPTY = ''
@@ -174,10 +174,10 @@ function handleFirstClick(elCell, currCell) {
 
 // when the user clicks on a regular cell expand his non mine negs
 function onEmptyClicked(elCell, cell) {
-    if (cell.isMine) { 
+    if (cell.isMine) {
         onMineClicked(cell)
         return;
-    } 
+    }
     cell.isShown = true
     elCell.classList.add('selected');
     expandShownAll(gBoard, cell);
@@ -320,9 +320,9 @@ function resetLevel() {
             gLevel.SAFE_CLICKS = 5
             break;
     }
-    gIsBoardManual = false; 
+    gIsBoardManual = false;
     gIsFirstClick = true;
-    gIsExterminateUsed = false; 
+    gIsExterminateUsed = false;
 }
 
 
@@ -399,4 +399,14 @@ function getCellCopy(cell) {
         isMarked: cell.isMarked,
     }
     return res;
+}
+
+function displayModal() {
+    var elModal = document.querySelector('.modal');
+    var elMsg = document.querySelector('.modal h2')
+    elModal.style.display = 'block';
+    elMsg.innerText = 'Cant Use at This Stage of The Game 😔';
+    setTimeout(() => {
+        elModal.style.display = 'none';
+    }, 2000);
 }

@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/scoreboard.css">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Mine Sweeper Game</title>
+    <link rel="stylesheet" href="css/_global.css">
+    <title>Mine💣Sweeper</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,24 +17,31 @@
 
 <body onload="onInit()">
     <div class="mode">
-        <h1 class='main-header'>Mine💣Sweeper </h1>
+        <header>
+            <h1 class='game-header'>Mine💣Sweeper</h1>
+            <div class="score-container">
+                <div class="best-time">Best Time:<span> No score yet..</span></div>
+                <div class="lives">Lives: <span></span></div>
+            </div>
+        </header>
         <div class="board-container">
-            <div class="best-time">Best Time:<span>No score yet</span></div>
-            <div class="timer">00:00:00</div>
+            <div class="time-container">
+                <div class="score">Score: <span></span></div>
+                <div class="timer">00:00:00</div>
+            </div>
             <div class="top-btns">
-                <button class="reset-btn undo-btn" onclick="undoMove()"><img src="img/undo.jpg"></button>
+                <button class="reset-btn undo-btn" onclick="undoMove()" title="Undo move"><img
+                        src="img/undo.jpg"></button>
                 <button class="reset-btn smile" onclick="resetGame()"></button>
                 <button class="reset-btn set-btn" onclick="setMinesManually()"><img src="img/setmines.png"></button>
             </div>
-
-
-
             <table>
                 <tbody class="board" id="main-board">
             </table>
             <div class="help-btns-container">
-                <button class="mode-btn safe-click" onclick="getSafeClick()"><span></span></button>
-                <button class="hint-btn mode-btn" onclick="getHint()"><span></span></button>
+                <button class="mode-btn safe-click" onclick="getSafeClick()"
+                    title="Shows a safe cell"><span></span></button>
+                <button class="hint-btn mode-btn" onclick="getHint()" title="Shows a mine"><span></span></button>
                 <button class="mode-btn" onclick="getMegaHint()">🔎</button>
                 <button class="mode-btn" onclick="blowUpMines()">👽</button>
             </div>
@@ -61,6 +67,5 @@
     <script src="js/util.js"></script>
 </body>
 
-<footer>Ori Teicher <span>&copy;</span></footer>
 
 </html>
