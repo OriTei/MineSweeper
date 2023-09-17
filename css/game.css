@@ -201,4 +201,213 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+=======
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Outfit:wght@300&family=Poppins&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background: linear-gradient(to right, #155799, #159957);
+    text-align: center;
+    color: white;
+    min-height: 10vh;
+    padding-bottom: 4000px;
+}
+
+.game-container {
+    opacity: 1;
+}
+
+.top-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+
+}
+
+.center-container {
+    display: flex;
+}
+
+.score {
+    width: 150px;
+    min-width: fit-content;
+    padding: 5px 20px;
+    text-shadow: 1px 1px 1px black;
+    background-color: #ffffff21;
+    border-radius: 25px;
+    font-size: 35px;
+    outline: 3px solid rgba(255, 255, 255, 0.295);
+}
+
+.hint-btn {
+    border: none;
+    margin: auto;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 50%;
+}
+
+.hint-btn:hover {
+    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.1s scale ease-in-out;
+}
+
+form {
+    left: 0;
+    background-color: #ffffff21;
+    border-radius: 20px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form div {
+    padding: 10px 15px;
+    display: flex;
+    width: 150px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.253);
+    justify-content: space-between;
+    align-items: center;
+}
+
+label {}
+
+table {
+    border-spacing: 1px;
+}
+
+td img {
+    height: 30px;
+    background-color: #333;
+}
+
+td {
+    background-image: none;
+    padding: 5px;
+    font-size: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+
+
+.set-btn img {
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.reset-btn {
+    background-color: #ffffff21;
+    transition: 0.2s;
+    border: none;
+    margin-right: 5px;
+    height: 90px;
+    width: 90px;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin: 5px 5px;
+}
+
+.reset-btn img {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.reset-btn:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.411);
+}
+
+
+
+.modal {
+    display: none;
+}
+
+.hint {
+    background: none;
+    background: linear-gradient(red, lightcoral);
+}
+
+.safe {
+    background: none;
+    background: linear-gradient(lime, green);
+}
+
+.mega-hint {
+    background: none;
+    background-color: rgb(108, 206, 108);
+}
+
+
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.above-board-container {
+    display: flex;
+}
+
+.top-btns button {
+    border-radius: 50%;
+}
+
+button {
+    transition: 0.1s ease-in-out scale;
+}
+
+button:hover {
+    scale: 1.1;
+}
+
+.hints-btns-container {
+    display: flex;
+    gap: 17px;
+    width: fit-content;
+}
+
+.hints-btns-container button {
+    background-color: #ffffff21;
+    border-radius: 20px;
+    font-size: 1.8em;
+}
+
+.topbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

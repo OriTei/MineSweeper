@@ -109,4 +109,77 @@ form .level-container {
         width: 30px;
         height: 30px;
     }
+=======
+.board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 2;
+    gap: 10px;
+    margin-block-start: 50px;
+}
+
+.cell {
+    transition: box-shadow ease-in-out 0.5s, background-color ease-out 0.2s;
+    font-size: 25px;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(51, 51, 51, 0.658);
+}
+
+.cell:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.658);
+}
+
+.selected {
+    background: none;
+    background: rgba(255, 255, 255, 0.286);
+
+}
+
+.marked {
+    background-color: rgba(235, 232, 99, 0.829);
+    box-sizing: border-box;
+}
+
+.selected:hover {
+    background: #ffffff49;
+    cursor: default;
+}
+
+.mine {
+    background: none;
+    transition: 0.5s;
+    background-color: rgb(245, 123, 123);
+}
+
+.mine:hover {
+    background: none;
+    transition: 0.5s;
+    background-color: rgb(245, 123, 123);
+    cursor: default;
+}
+
+
+.marked:hover {
+    background-color: rgb(231, 229, 85);
+    box-sizing: border-box;
+    box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.178);
+    cursor: default;
+}
+
+.left-board-section {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+}
+
+
+@media (max-width: 850px) {
+    .cell {
+        width: 30px;
+        height: 30px;
+    }
 }
