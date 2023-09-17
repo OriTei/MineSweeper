@@ -1,8 +1,8 @@
-@import 'header.css';
-@import 'scoreboard.css';
-@import 'time.css';
-@import 'board.css';
-@import 'footer.css';
-@import 'dark.mode.css';
-@import 'game.css';
-@import 'utils.css';
+@import './header.css';
+@import './scoreboard.css';
+@import './time.css';
+@import './board.css';
+@import './footer.css';
+@import './dark.mode.css';
+@import './game.css';
+@import './utils.css';
